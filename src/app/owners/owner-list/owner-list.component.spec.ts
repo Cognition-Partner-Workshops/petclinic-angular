@@ -16,7 +16,6 @@
  *
  */
 
-/* tslint:disable:no-unused-variable */
 
 /**
  * @author Vitaliy Fedoriv
@@ -123,7 +122,7 @@ describe('OwnerListComponent', () => {
 
   it('should call ngOnInit() method', () => {
     fixture.detectChanges();
-    expect(spy.calls.any()).toBe(true, 'getOwners called');
+    expect(spy.calls.any()).withContext('getOwners called').toBe(true);
   });
 
 

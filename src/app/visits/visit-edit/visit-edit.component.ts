@@ -20,23 +20,24 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
-import {Visit} from '../visit';
-import {Pet} from '../../pets/pet';
-import {Owner} from '../../owners/owner';
-import {PetType} from '../../pettypes/pettype';
-import {VisitService} from '../visit.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Visit } from '../visit';
+import { Pet } from '../../pets/pet';
+import { Owner } from '../../owners/owner';
+import { PetType } from '../../pettypes/pettype';
+import { VisitService } from '../visit.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import * as moment from 'moment';
-import {OwnerService} from '../../owners/owner.service';
-import {PetService} from '../../pets/pet.service';
+import moment from 'moment';
+import { OwnerService } from '../../owners/owner.service';
+import { PetService } from '../../pets/pet.service';
 
 @Component({
-    selector: 'app-visit-edit',
-    templateUrl: './visit-edit.component.html',
-    styleUrls: ['./visit-edit.component.css'],
-    standalone: false
+  selector: 'app-visit-edit',
+  templateUrl: './visit-edit.component.html',
+  styleUrls: ['./visit-edit.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class VisitEditComponent implements OnInit {
   visit: Visit;
@@ -46,11 +47,13 @@ export class VisitEditComponent implements OnInit {
   updateSuccess = false;
   errorMessage: string;
 
-  constructor(private visitService: VisitService,
-              private petService: PetService,
-              private ownerService: OwnerService,
-              private route: ActivatedRoute,
-              private router: Router) {
+  constructor(
+    private visitService: VisitService,
+    private petService: PetService,
+    private ownerService: OwnerService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
     this.visit = {} as Visit;
     this.currentPet = {} as Pet;
     this.currentOwner = {} as Owner;
@@ -60,21 +63,20 @@ export class VisitEditComponent implements OnInit {
   ngOnInit() {
     const visitId = this.route.snapshot.params.id;
     this.visitService.getVisitById(visitId).subscribe(
-      visit => {
+      {
+        next: (visit) => {
         this.visit = visit;
-        this.petService.getPetById(visit.petId).subscribe(
-          pet => {
-            this.currentPet = pet;
-            this.currentPetType = pet.type;
-            this.ownerService.getOwnerById(pet.ownerId).subscribe(
-              owner => {
-                this.currentOwner = owner;
-              }
-            )
-          }
-        )
+        this.petService.getPetById(visit.petId).subscribe((pet) => {
+          this.currentPet = pet;
+          this.currentPetType = pet.type;
+          this.ownerService.getOwnerById(pet.ownerId).subscribe((owner) => {
+            this.currentOwner = owner;
+          });
+        });
       },
-      error => this.errorMessage = error as any);
+        error: (error) => (this.errorMessage = error as any),
+      },
+    );
   }
 
   onSubmit(visit: Visit) {
@@ -84,13 +86,14 @@ export class VisitEditComponent implements OnInit {
     visit.date = moment(visit.date).format('YYYY-MM-DD');
 
     this.visitService.updateVisit(visit.id.toString(), visit).subscribe(
-      res => this.gotoOwnerDetail(),
-      error => this.errorMessage = error as any);
-
+      {
+        next: (res) => this.gotoOwnerDetail(),
+        error: (error) => (this.errorMessage = error as any),
+      },
+    );
   }
 
   gotoOwnerDetail() {
     this.router.navigate(['/owners', this.currentOwner.id]);
   }
-
 }

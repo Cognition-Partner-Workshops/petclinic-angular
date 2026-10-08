@@ -16,7 +16,6 @@
  *
  */
 
-/* tslint:disable:no-unused-variable */
 
 /**
  * @author Vitaliy Fedoriv
@@ -31,7 +30,7 @@ import {SpecialtyService} from '../specialty.service';
 import {Specialty} from '../specialty';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ActivatedRouteStub, RouterStub} from '../../testing/router-stubs';
-import {Observable, of} from 'rxjs/index';
+import {Observable, of} from 'rxjs';
 import Spy = jasmine.Spy;
 
 class SpecialityServiceStub {
@@ -91,7 +90,7 @@ describe('SpecialtyListComponent', () => {
   it('should call deleteSpecialty() method', () => {
     fixture.detectChanges();
     component.deleteSpecialty(component.specialties[0]);
-    expect(spy.calls.any()).toBe(true, 'deleteSpecialty called');
+    expect(spy.calls.any()).withContext('deleteSpecialty called').toBe(true);
   });
 
 });

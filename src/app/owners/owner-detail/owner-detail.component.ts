@@ -20,31 +20,38 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
-import {OwnerService} from '../owner.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Owner} from '../owner';
-
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { OwnerService } from '../owner.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Owner } from '../owner';
 
 @Component({
-    selector: 'app-owner-detail',
-    templateUrl: './owner-detail.component.html',
-    styleUrls: ['./owner-detail.component.css'],
-    standalone: false
+  selector: 'app-owner-detail',
+  templateUrl: './owner-detail.component.html',
+  styleUrls: ['./owner-detail.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class OwnerDetailComponent implements OnInit {
   errorMessage: string;
   owner: Owner;
 
-  constructor(private route: ActivatedRoute, private router: Router, private ownerService: OwnerService) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private ownerService: OwnerService,
+  ) {
     this.owner = {} as Owner;
   }
 
   ngOnInit() {
     const ownerId = this.route.snapshot.params.id;
     this.ownerService.getOwnerById(ownerId).subscribe(
-      owner => this.owner = owner,
-      error => this.errorMessage = error as any);
+      {
+        next: (owner) => (this.owner = owner),
+        error: (error) => (this.errorMessage = error as any),
+      },
+    );
   }
 
   gotoOwnersList() {
@@ -58,6 +65,4 @@ export class OwnerDetailComponent implements OnInit {
   addPet(owner: Owner) {
     this.router.navigate(['/owners', owner.id, 'pets', 'add']);
   }
-
-
 }

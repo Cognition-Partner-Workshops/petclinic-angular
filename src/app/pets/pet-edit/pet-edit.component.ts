@@ -16,27 +16,32 @@
  *
  */
 
-
 /**
  * @author Vitaliy Fedoriv
  */
 
-import {Component, Input, OnInit} from '@angular/core';
-import {Pet} from '../pet';
-import {PetService} from '../pet.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Owner} from '../../owners/owner';
-import {PetType} from '../../pettypes/pettype';
-import {PetTypeService} from '../../pettypes/pettype.service';
+import {
+  Component,
+  Input,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { Pet } from '../pet';
+import { PetService } from '../pet.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Owner } from '../../owners/owner';
+import { PetType } from '../../pettypes/pettype';
+import { PetTypeService } from '../../pettypes/pettype.service';
 
-import * as moment from 'moment';
-import {OwnerService} from '../../owners/owner.service';
+import moment from 'moment';
+import { OwnerService } from '../../owners/owner.service';
 
 @Component({
-    selector: 'app-pet-edit',
-    templateUrl: './pet-edit.component.html',
-    styleUrls: ['./pet-edit.component.css'],
-    standalone: false
+  selector: 'app-pet-edit',
+  templateUrl: './pet-edit.component.html',
+  styleUrls: ['./pet-edit.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class PetEditComponent implements OnInit {
   pet: Pet;
@@ -45,11 +50,13 @@ export class PetEditComponent implements OnInit {
   petTypes: PetType[];
   errorMessage: string;
 
-  constructor(private petService: PetService,
-              private petTypeService: PetTypeService,
-              private ownerService: OwnerService,
-              private router: Router,
-              private route: ActivatedRoute) {
+  constructor(
+    private petService: PetService,
+    private petTypeService: PetTypeService,
+    private ownerService: OwnerService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {
     this.pet = {} as Pet;
     this.currentOwner = {} as Owner;
     this.currentType = {} as PetType;
@@ -57,23 +64,26 @@ export class PetEditComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.petTypeService.getPetTypes().subscribe(
-      pettypes => this.petTypes = pettypes,
-      error => this.errorMessage = error as any);
+      {
+        next: (pettypes) => (this.petTypes = pettypes),
+        error: (error) => (this.errorMessage = error as any),
+      },
+    );
 
     const petId = this.route.snapshot.params.id;
     this.petService.getPetById(petId).subscribe(
-      pet => {
+      {
+        next: (pet) => {
         this.pet = pet;
-        this.ownerService.getOwnerById(pet.ownerId).subscribe(
-          response => {
-            this.currentOwner = response;
-          });
+        this.ownerService.getOwnerById(pet.ownerId).subscribe((response) => {
+          this.currentOwner = response;
+        });
         this.currentType = this.pet.type;
       },
-      error => this.errorMessage = error as any);
-
+        error: (error) => (this.errorMessage = error as any),
+      },
+    );
   }
 
   onSubmit(pet: Pet) {
@@ -83,13 +93,14 @@ export class PetEditComponent implements OnInit {
     pet.birthDate = moment(pet.birthDate).format('YYYY-MM-DD');
 
     this.petService.updatePet(pet.id.toString(), pet).subscribe(
-      res => this.gotoOwnerDetail(this.currentOwner),
-      error => this.errorMessage = error as any
+      {
+        next: (res) => this.gotoOwnerDetail(this.currentOwner),
+        error: (error) => (this.errorMessage = error as any),
+      },
     );
   }
 
   gotoOwnerDetail(owner: Owner) {
     this.router.navigate(['/owners', owner.id]);
   }
-
 }

@@ -16,7 +16,6 @@
  *
  */
 
-/* tslint:disable:no-unused-variable */
 
 /**
  * @author Vitaliy Fedoriv
@@ -96,6 +95,6 @@ describe('PetListComponent', () => {
   it('should call deletePet() method', () => {
     fixture.detectChanges();
     component.deletePet(component.pet);
-    expect(spy.calls.any()).toBe(true, 'deletePet called');
+    expect(spy.calls.any()).withContext('deletePet called').toBe(true);
   });
 });

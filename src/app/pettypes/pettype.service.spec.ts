@@ -16,26 +16,42 @@
  *
  */
 
-/* tslint:disable:no-unused-variable */
 
 /**
  * @author Vitaliy Fedoriv
  */
 
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
-import {PetTypeService} from './pettype.service';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { PetTypeService } from './pettype.service';
+import {
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi,
+  withXhr,
+} from '@angular/common/http';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 
 describe('PetTypeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [],
-    providers: [PetTypeService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-});
+      imports: [],
+      providers: [
+        PetTypeService,
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    });
   });
 
-  it('should ...', waitForAsync(inject([HttpTestingController], (petTypeService: PetTypeService, http: HttpClient) => {
-    expect(petTypeService).toBeTruthy();
-  })));
+  it('should ...', waitForAsync(
+    inject(
+      [HttpTestingController],
+      (petTypeService: PetTypeService, http: HttpClient) => {
+        expect(petTypeService).toBeTruthy();
+      },
+    ),
+  ));
 });

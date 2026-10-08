@@ -16,7 +16,6 @@
  *
  */
 
-/* tslint:disable:no-unused-variable */
 
 /**
  * @author Vitaliy Fedoriv
@@ -31,7 +30,7 @@ import {VetService} from '../vet.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ActivatedRouteStub, RouterStub} from '../../testing/router-stubs';
 import {Vet} from '../vet';
-import {Observable, of} from 'rxjs/index';
+import {Observable, of} from 'rxjs';
 
 class VetServiceStub {
   getVets(): Observable<Vet[]> {
