@@ -23,7 +23,9 @@ import {FormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MatMomentDateModule, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MY_DATE_FORMATS} from '../visits.module';
 import {of, throwError} from 'rxjs';
 
 import {VisitAddComponent} from './visit-add.component';
@@ -110,7 +112,9 @@ describe('VisitAddComponent', () => {
         {provide: PetService, useValue: petService},
         {provide: OwnerService, useValue: ownerService},
         {provide: Router, useValue: router},
-        {provide: ActivatedRoute, useValue: {snapshot: {params: {id: '1'}}}}
+        {provide: ActivatedRoute, useValue: {snapshot: {params: {id: '1'}}}},
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS}
       ]
     }).compileComponents();
   });
@@ -139,7 +143,7 @@ describe('VisitAddComponent', () => {
       expect(addButton().disabled).toBeTrue();
       await type('#description', 'annual checkup');
       expect(addButton().disabled).toBeTrue();
-      await type('input[name="date"]', '3/15/2024');
+      await type('input[name="date"]', '2024/03/15');
       expect(addButton().disabled).toBeFalse();
     });
 
@@ -154,7 +158,7 @@ describe('VisitAddComponent', () => {
     beforeEach(createComponent);
 
     async function fillValidForm() {
-      await type('input[name="date"]', '3/15/2024');
+      await type('input[name="date"]', '2024/03/15');
       await type('#description', 'annual checkup');
     }
 
@@ -197,7 +201,7 @@ describe('VisitAddComponent', () => {
     });
 
     it('shows "Date is required" when the date is cleared', async () => {
-      await type('input[name="date"]', '3/15/2024');
+      await type('input[name="date"]', '2024/03/15');
       await type('input[name="date"]', '');
 
       expect(helpTexts()).toContain('Date is required');

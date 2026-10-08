@@ -52,11 +52,13 @@ Each dimension is scored **0 (none) / 1 (partial) / 2 (good)**. `N/A` = the comp
 
 | Component | Before | After | What's now covered |
 |---|---|---|---|
-| `VetAddComponent` | 0 tests | 11 tests | Specialty dropdown populated from API; Save disabled until valid; submit payload (`id: null`, names, selected specialty or `[]`) + navigation to `/vets`; Back button; required / letters-only / 30-char validation messages; invalid form never calls API; `addVet` error keeps user on form; `getSpecialties` error still allows creating a vet. |
+| `VetAddComponent` | 0 tests | 11 tests | Specialty dropdown populated from API; Save disabled until valid; submit payload (`id: null`, names, selected specialty or `[]`) + navigation to `/vets`; Back button; required / letters-only validation messages; native `maxlength=30` cap (the inline max-length message is unreachable in a browser because the input truncates); invalid form never calls API; `addVet` error keeps user on form; `getSpecialties` error still allows creating a vet. |
 | `VetEditComponent` | 0 tests | 10 tests | Form pre-filled from resolver data (incl. mat-select display via `compareSpecFn`); edit + save payload and navigation; choosing an extra specialty through the real `mat-select` overlay; Back button; required / letters-only / min-length validation; invalid form never calls API; `updateVet` error keeps user on form. |
-| `VisitAddComponent` | 1 test | 11 tests | Pet loaded from route id and owner from `pet.ownerId`; pet/owner summary row rendered; previous visits passed to `<app-visit-list>` (stubbed child, not `CUSTOM_ELEMENTS_SCHEMA`); Add Visit disabled until date + description; submit sends ISO `YYYY-MM-DD` date and navigates to owner; Back button; required/unparseable-date validation; `addVisit` error and `getPetById` 404 handling. |
+| `VisitAddComponent` | 1 test | 11 tests | Pet loaded from route id and owner from `pet.ownerId`; pet/owner summary row rendered; previous visits passed to `<app-visit-list>` (stubbed child, not `CUSTOM_ELEMENTS_SCHEMA`); Add Visit disabled until date + description; submit sends ISO `YYYY-MM-DD` date and navigates to owner; Back button; required/unparseable-date validation (typed in the production `YYYY/MM/DD` format via `MY_DATE_FORMATS`); `addVisit` error and `getPetById` 404 handling. |
 
 Practices applied: typed `jasmine.createSpyObj` with only the methods each component calls; realistic PetClinic sample data (George Franklin / Leo / Helen Leary); interaction through the DOM (`input` events, button clicks, real `mat-select`) rather than calling component methods; no `CUSTOM_ELEMENTS_SCHEMA`; fresh spies per test; `async/await` with `whenStable()` instead of un-awaited promises.
+
+Browser check: the same flows were exercised in the running app against the official Spring PetClinic REST backend. That run caught two spec/runtime mismatches, which are now fixed: the date input format, and the max-length state, which can't be reached in the UI.
 
 Sanity check: temporarily breaking navigation in `VetAdd`/`VetEdit` and the date format in `VisitAdd` made 5 of the new tests fail, confirming they guard real behavior.
 

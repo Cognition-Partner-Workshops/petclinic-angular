@@ -173,12 +173,16 @@ describe('VetAddComponent', () => {
       expect(saveButton().disabled).toBeTrue();
     });
 
-    it('rejects names longer than 30 characters', async () => {
-      await type('#firstName', 'A'.repeat(31));
+    it('caps names at 30 characters and accepts names of that length', async () => {
+      const input = (selector: string) => fixture.nativeElement.querySelector(selector) as HTMLInputElement;
+      expect(input('#firstName').maxLength).toBe(30);
+      expect(input('#lastName').maxLength).toBe(30);
+
+      await type('#firstName', 'A'.repeat(30));
       await type('#lastName', 'Carter');
 
-      expect(helpTexts()).toContain('First Name may be only 30 characters long');
-      expect(saveButton().disabled).toBeTrue();
+      expect(helpTexts()).not.toContain('First Name may be only 30 characters long');
+      expect(saveButton().disabled).toBeFalse();
     });
 
     it('does not call the API when the form is invalid', async () => {
