@@ -45,8 +45,8 @@ describe('OwnerService', () => {
     providers: [OwnerService, HttpErrorHandler, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
 });
 
-    httpTestingController = TestBed.get(HttpTestingController);
-    ownerService = TestBed.get(OwnerService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    ownerService = TestBed.inject(OwnerService);
     expectedOwners = [
       { id: 1, firstName: 'A' },
       { id: 2, firstName: 'B' },
