@@ -8,8 +8,7 @@
     "build": "ng build",
     "test": "ng test",
     "test-headless": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -44,23 +43,18 @@
     "@angular/compiler-cli": "21.2.25",
     "@angular/language-service": "21.2.25",
     "@types/jasmine": "~3.6.0",
-    "@types/jasminewd2": "~2.0.2",
     "@types/node": "^12.11.1",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
-    "codelyzer": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.71.1",
+    "@typescript-eslint/parser": "^8.71.1",
     "eslint": "^8.57.0",
     "jasmine-core": "~3.6.0",
-    "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.16",
     "karma-chrome-launcher": "~3.1.0",
     "karma-cli": "~1.0.1",
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "protractor": "~7.0.0",
     "source-map-explorer": "^1.5.0",
-    "ts-node": "~4.1.0",
     "typescript": "5.9.3"
   }
 }
