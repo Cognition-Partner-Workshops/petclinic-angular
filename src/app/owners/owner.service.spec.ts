@@ -70,15 +70,12 @@ describe('OwnerService', () => {
   it('should return expected owners (called once)', () => {
     ownerService
       .getOwners()
-      .subscribe(
-        {
-          next: (owners) =>
-            expect(owners)
-              .withContext('should return expected owners')
-              .toEqual(expectedOwners),
-          error: fail,
-        },
-      );
+      .subscribe({
+        next: (owners) => expect(owners)
+          .withContext('should return expected owners')
+          .toEqual(expectedOwners),
+        error: fail,
+      });
 
     // OwnerService should have made one request to GET owners from expected URL
     const req = httpTestingController.expectOne(ownerService.entityUrl);
@@ -113,13 +110,10 @@ describe('OwnerService', () => {
 
     ownerService
       .addOwner(owner)
-      .subscribe(
-        {
-        next: (data) =>
-          expect(data).withContext('should return new owner').toEqual(owner),
-          error: fail,
-        },
-      );
+      .subscribe({
+        next: (data) => expect(data).withContext('should return new owner').toEqual(owner),
+        error: fail,
+      });
 
     const req = httpTestingController.expectOne(ownerService.entityUrl);
     expect(req.request.method).toEqual('POST');
@@ -148,8 +142,7 @@ describe('OwnerService', () => {
     ownerService
       .updateOwner(owner.id.toString(), owner)
       .subscribe({
-        next: (data) =>
-          expect(data).withContext('updated owner').toEqual(owner),
+        next: (data) => expect(data).withContext('updated owner').toEqual(owner),
         error: fail,
       });
 
@@ -177,8 +170,7 @@ describe('OwnerService', () => {
   it('search for delete Owner', () => {
     ownerService.getOwnerById(1).subscribe({
       next: () => fail('Should have failed with 404 error'),
-      error: (error: string) =>
-        expect(error).toContain('server returned code 404 with body "404 error"'),
+      error: (error: string) => expect(error).toContain('server returned code 404 with body "404 error"'),
     });
 
     const req = httpTestingController.expectOne({

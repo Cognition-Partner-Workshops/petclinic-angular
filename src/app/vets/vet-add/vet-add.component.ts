@@ -22,7 +22,7 @@
 
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Specialty } from '../../specialties/specialty';
-import { SpecialtyService } from 'app/specialties/specialty.service';
+import { SpecialtyService } from '../../specialties/specialty.service';
 import { Vet } from '../vet';
 import { Router } from '@angular/router';
 import { VetService } from '../vet.service';
@@ -51,12 +51,10 @@ export class VetAddComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.specialtyService.getSpecialties().subscribe(
-      {
-        next: (specialties) => (this.specialtiesList = specialties),
-        error: (error) => (this.errorMessage = error as any),
-      },
-    );
+    this.specialtyService.getSpecialties().subscribe({
+      next: (specialties) => (this.specialtiesList = specialties),
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   onSubmit(vet: Vet) {
@@ -65,15 +63,13 @@ export class VetAddComponent implements OnInit {
     if (this.selectedSpecialty.id !== undefined) {
       vet.specialties.push(this.selectedSpecialty);
     }
-    this.vetService.addVet(vet).subscribe(
-      {
-        next: (newVet) => {
+    this.vetService.addVet(vet).subscribe({
+      next: (newVet) => {
         this.vet = newVet;
         this.gotoVetList();
       },
-        error: (error) => (this.errorMessage = error as any),
-      },
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   gotoVetList() {

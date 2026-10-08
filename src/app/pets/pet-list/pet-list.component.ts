@@ -57,15 +57,13 @@ export class PetListComponent implements OnInit {
   }
 
   deletePet(pet: Pet) {
-    this.petService.deletePet(pet.id.toString()).subscribe(
-      {
-        next: (response) => {
+    this.petService.deletePet(pet.id.toString()).subscribe({
+      next: (response) => {
         this.deleteSuccess = true;
         this.pet = {} as Pet;
       },
-        error: (error) => (this.errorMessage = error as any),
-      },
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   addVisit(pet: Pet) {

@@ -55,26 +55,20 @@ export class SpecialtyListComponent implements OnInit {
           this.isSpecialitiesDataReceived = true;
         }),
       )
-      .subscribe(
-        {
-          next: (specialties) => (this.specialties = specialties),
-          error: (error) => (this.errorMessage = error as any),
-        },
-      );
+      .subscribe({
+        next: (specialties) => (this.specialties = specialties),
+        error: (error) => (this.errorMessage = error as any),
+      });
   }
 
   deleteSpecialty(specialty: Specialty) {
-    this.specService.deleteSpecialty(specialty.id.toString()).subscribe(
-      {
-        next: (response) => {
+    this.specService.deleteSpecialty(specialty.id.toString()).subscribe({
+      next: (response) => {
         this.responseStatus = response;
-        this.specialties = this.specialties.filter(
-          (currentItem) => !(currentItem.id === specialty.id),
-        );
+        this.specialties = this.specialties.filter((currentItem) => !(currentItem.id === specialty.id));
       },
-        error: (error) => (this.errorMessage = error as any),
-      },
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   onNewSpecialty(newSpecialty: Specialty) {

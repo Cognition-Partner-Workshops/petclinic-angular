@@ -6,8 +6,15 @@ module.exports = tseslint.config(
   {
     files: ['**/*.ts'],
     extends: [...angular.configs.tsRecommended],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: __dirname,
+      },
+    },
     processor: angular.processInlineTemplates,
     plugins: {
+      '@typescript-eslint': tseslint.plugin,
       '@stylistic': stylistic,
     },
     rules: {
@@ -34,6 +41,7 @@ module.exports = tseslint.config(
       // Keep eager zone-based change detection instead of changing app behavior to OnPush.
       '@angular-eslint/prefer-on-push-component-change-detection': 'off',
       '@angular-eslint/no-empty-lifecycle-method': 'off',
+      '@typescript-eslint/no-deprecated': 'error',
       '@stylistic/quotes': [
         'error',
         'single',

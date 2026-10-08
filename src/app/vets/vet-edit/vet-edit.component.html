@@ -63,13 +63,16 @@
           <span class="help-block"
             >First Name may be only 30 characters long</span
           >
-          } @if (firstNameCtrl.dirty && firstNameCtrl.hasError('minlength')) {
+          }
+          @if (firstNameCtrl.dirty && firstNameCtrl.hasError('minlength')) {
           <span class="help-block"
             >First Name must be at least 1 characters long</span
           >
-          } @if (firstNameCtrl.dirty && firstNameCtrl.hasError('pattern')) {
+          }
+          @if (firstNameCtrl.dirty && firstNameCtrl.hasError('pattern')) {
           <span class="help-block">First Name may only consist of letters</span>
-          } @if (firstNameCtrl.dirty && firstNameCtrl.hasError('required')) {
+          }
+          @if (firstNameCtrl.dirty && firstNameCtrl.hasError('required')) {
           <span class="help-block">First Name is required</span>
           }
         </div>
@@ -102,13 +105,16 @@
           <span class="help-block"
             >Last Name may be only 30 characters long</span
           >
-          } @if (lastNameCtrl.dirty && lastNameCtrl.hasError('minlength')) {
+          }
+          @if (lastNameCtrl.dirty && lastNameCtrl.hasError('minlength')) {
           <span class="help-block"
             >Last Name must be at least 1 characters long</span
           >
-          } @if (lastNameCtrl.dirty && lastNameCtrl.hasError('pattern')) {
+          }
+          @if (lastNameCtrl.dirty && lastNameCtrl.hasError('pattern')) {
           <span class="help-block">Last Name may only consist of letters</span>
-          } @if (lastNameCtrl.dirty && lastNameCtrl.hasError('required')) {
+          }
+          @if (lastNameCtrl.dirty && lastNameCtrl.hasError('required')) {
           <span class="help-block">Last Name is required</span>
           }
         </div>

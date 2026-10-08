@@ -54,26 +54,20 @@ export class VetListComponent implements OnInit {
           this.isVetDataReceived = true;
         }),
       )
-      .subscribe(
-        {
-          next: (vets) => (this.vets = vets),
-          error: (error) => (this.errorMessage = error as any),
-        },
-      );
+      .subscribe({
+        next: (vets) => (this.vets = vets),
+        error: (error) => (this.errorMessage = error as any),
+      });
   }
 
   deleteVet(vet: Vet) {
-    this.vetService.deleteVet(vet.id.toString()).subscribe(
-      {
-        next: (response) => {
+    this.vetService.deleteVet(vet.id.toString()).subscribe({
+      next: (response) => {
         this.responseStatus = response;
-        this.vets = this.vets.filter(
-          (currentItem) => !(currentItem.id === vet.id),
-        );
+        this.vets = this.vets.filter((currentItem) => !(currentItem.id === vet.id));
       },
-        error: (error) => (this.errorMessage = error as any),
-      },
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   gotoHome() {

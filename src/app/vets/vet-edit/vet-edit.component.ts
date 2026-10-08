@@ -101,15 +101,13 @@ export class VetEditComponent implements OnInit {
   }
 
   onSubmit(vet: Vet) {
-    this.vetService.updateVet(vet.id.toString(), vet).subscribe(
-      {
-        next: (res) => {
+    this.vetService.updateVet(vet.id.toString(), vet).subscribe({
+      next: (res) => {
         console.log('update success');
         this.gotoVetList();
       },
-        error: (error) => (this.errorMessage = error as any),
-      },
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   gotoVetList() {

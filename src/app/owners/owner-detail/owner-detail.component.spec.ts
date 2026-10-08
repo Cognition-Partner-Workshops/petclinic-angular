@@ -27,7 +27,6 @@ import { By } from '@angular/platform-browser';
 import { ENGINE_METHOD_PKEY_ASN1_METHS } from 'constants';
 import { OwnerDetailComponent } from './owner-detail.component';
 import { FormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
 import { OwnerService } from '../owner.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActivatedRouteStub, RouterStub } from '../../testing/router-stubs';
@@ -52,7 +51,7 @@ describe('OwnerDetailComponent', () => {
       TestBed.configureTestingModule({
         declarations: [OwnerDetailComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        imports: [FormsModule, RouterTestingModule],
+        imports: [FormsModule],
         providers: [
           { provide: OwnerService, useClass: OwnerServiceStub },
           { provide: Router, useClass: RouterStub },
@@ -66,7 +65,7 @@ describe('OwnerDetailComponent', () => {
       TestBed.configureTestingModule({
         declarations: [OwnerDetailComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        imports: [FormsModule, RouterTestingModule],
+        imports: [FormsModule],
         providers: [
           { provide: OwnerService, useValue: ownerService },
           { provide: Router, useClass: RouterStub },

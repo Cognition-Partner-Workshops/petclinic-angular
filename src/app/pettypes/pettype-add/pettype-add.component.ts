@@ -28,14 +28,12 @@ export class PettypeAddComponent implements OnInit {
 
   onSubmit(pettype: PetType) {
     pettype.id = null;
-    this.pettypeService.addPetType(pettype).subscribe(
-      {
-        next: (newPettype) => {
+    this.pettypeService.addPetType(pettype).subscribe({
+      next: (newPettype) => {
         this.pettype = newPettype;
         this.newPetType.emit(this.pettype);
       },
-        error: (error) => (this.errorMessage = error as any),
-      },
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 }

@@ -27,7 +27,6 @@ import { OwnerAddComponent } from './owner-add.component';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OwnerService } from '../owner.service';
-import { RouterTestingModule } from '@angular/router/testing';
 import { RouterStub } from '../../testing/router-stubs';
 import { Owner } from '../owner';
 import { Observable, of } from 'rxjs';
@@ -50,7 +49,7 @@ describe('OwnerAddComponent', () => {
       TestBed.configureTestingModule({
         declarations: [OwnerAddComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        imports: [FormsModule, RouterTestingModule],
+        imports: [FormsModule],
         providers: [
           { provide: OwnerService, useClass: OwnserServiceStub },
           { provide: Router, useClass: RouterStub },
@@ -64,7 +63,7 @@ describe('OwnerAddComponent', () => {
       TestBed.configureTestingModule({
         declarations: [OwnerAddComponent],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        imports: [FormsModule, RouterTestingModule],
+        imports: [FormsModule],
         providers: [
           { provide: OwnerService, useClass: OwnserServiceStub },
           { provide: Router, useClass: RouterStub },

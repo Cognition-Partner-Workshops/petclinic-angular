@@ -61,15 +61,18 @@
           ></span>
           @if (firstName.dirty && firstName.hasError('required')) {
           <span class="help-block">First name is required</span>
-          } @if (firstName.dirty && firstName.hasError('minlength')) {
+          }
+          @if (firstName.dirty && firstName.hasError('minlength')) {
           <span class="help-block"
             >First name must be at least 1 characters long</span
           >
-          } @if (firstName.dirty && firstName.hasError('maxlength')) {
+          }
+          @if (firstName.dirty && firstName.hasError('maxlength')) {
           <span class="help-block"
             >First name may be at most 30 characters long</span
           >
-          } @if (firstName.dirty && firstName.hasError('pattern')) {
+          }
+          @if (firstName.dirty && firstName.hasError('pattern')) {
           <span class="help-block"
             >First name must consist of letters only</span
           >
@@ -103,15 +106,18 @@
           ></span>
           @if (lastName.dirty && lastName.hasError('required')) {
           <span class="help-block">Last name is required</span>
-          } @if (lastName.dirty && lastName.hasError('minlength')) {
+          }
+          @if (lastName.dirty && lastName.hasError('minlength')) {
           <span class="help-block"
             >Last name must be at least 1 characters long</span
           >
-          } @if (lastName.dirty && lastName.hasError('maxlength')) {
+          }
+          @if (lastName.dirty && lastName.hasError('maxlength')) {
           <span class="help-block"
             >Last name may be at most 30 characters long</span
           >
-          } @if (lastName.dirty && lastName.hasError('pattern')) {
+          }
+          @if (lastName.dirty && lastName.hasError('pattern')) {
           <span class="help-block">Last name must consist of letters only</span>
           }
         </div>
@@ -141,7 +147,8 @@
           ></span>
           @if (address.dirty && address.hasError('required')) {
           <span class="help-block">Address is required</span>
-          } @if (address.dirty && address.hasError('maxlength')) {
+          }
+          @if (address.dirty && address.hasError('maxlength')) {
           <span class="help-block"
             >Address may be at most 255 characters long</span
           >
@@ -173,7 +180,8 @@
           ></span>
           @if (city.dirty && city.hasError('required')) {
           <span class="help-block">City is required</span>
-          } @if (city.dirty && city.hasError('maxlength')) {
+          }
+          @if (city.dirty && city.hasError('maxlength')) {
           <span class="help-block">City may be at most 80 characters long</span>
           }
         </div>
@@ -205,11 +213,13 @@
           ></span>
           @if (telephone.dirty && telephone.hasError('required')) {
           <span class="help-block">Phone number is required</span>
-          } @if (telephone.dirty && telephone.hasError('maxlength')) {
+          }
+          @if (telephone.dirty && telephone.hasError('maxlength')) {
           <span class="help-block"
             >Phone number cannot be more than 20 digits long</span
           >
-          } @if (telephone.dirty && telephone.hasError('pattern')) {
+          }
+          @if (telephone.dirty && telephone.hasError('pattern')) {
           <span class="help-block">Phone number only accept digits</span>
           }
         </div>

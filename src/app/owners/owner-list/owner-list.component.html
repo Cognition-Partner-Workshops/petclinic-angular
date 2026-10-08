@@ -53,7 +53,8 @@
 
     @if (!owners) {
     <div>No owners with LastName starting with "{{ lastName }}"</div>
-    } @if (owners) {
+    }
+    @if (owners) {
     <div class="table-responsive" id="ownersTable">
       <table class="table table-striped">
         <thead>

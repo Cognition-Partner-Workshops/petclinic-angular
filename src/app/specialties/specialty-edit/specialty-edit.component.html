@@ -63,15 +63,18 @@
             ></span>
             @if (name.dirty && name.hasError('maxlength')) {
             <span class="help-block">Name may be only 80 characters long</span>
-            } @if (name.dirty && name.hasError('minlength')) {
+            }
+            @if (name.dirty && name.hasError('minlength')) {
             <span class="help-block"
               >Name must be at least 1 characters long</span
             >
-            } @if (name.dirty && name.hasError('pattern')) {
+            }
+            @if (name.dirty && name.hasError('pattern')) {
             <span class="help-block"
               >Name must begin with a letter or digit</span
             >
-            } @if (name.dirty && name.hasError('required')) {
+            }
+            @if (name.dirty && name.hasError('required')) {
             <span class="help-block">Name is required</span>
             }
           </div>

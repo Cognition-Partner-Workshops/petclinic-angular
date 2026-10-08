@@ -83,11 +83,14 @@
           ></span>
           @if (name.dirty && name.hasError('required')) {
           <span class="help-block">Name is required</span>
-          } @if (name.dirty && name.hasError('minlength')) {
+          }
+          @if (name.dirty && name.hasError('minlength')) {
           <span class="help-block">Name must be at least 1 character long</span>
-          } @if (name.dirty && name.hasError('maxlength')) {
+          }
+          @if (name.dirty && name.hasError('maxlength')) {
           <span class="help-block">Name may be at most 30 character long</span>
-          } @if (name.dirty && name.hasError('pattern')) {
+          }
+          @if (name.dirty && name.hasError('pattern')) {
           <span class="help-block">Name must begin with a letter</span>
           }
         </div>
@@ -173,7 +176,8 @@
               ></span>
               @if (pettype.dirty && pettype.hasError('required')) {
               <span class="help-block">First name is required</span>
-              } @if (pettype.dirty && pettype.hasError('minlength')) {
+              }
+              @if (pettype.dirty && pettype.hasError('minlength')) {
               <span class="help-block"
                 >First name must be at least 2 characters long</span
               >

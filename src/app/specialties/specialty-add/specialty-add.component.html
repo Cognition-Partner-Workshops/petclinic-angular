@@ -45,16 +45,19 @@
             ></span>
             @if (specialityName.dirty && specialityName.hasError('maxlength')) {
             <span class="help-block">Name may be only 80 characters long</span>
-            } @if (specialityName.dirty && specialityName.hasError('minlength'))
+            }
+            @if (specialityName.dirty && specialityName.hasError('minlength'))
             {
             <span class="help-block"
               >Name must be at least 1 characters long</span
             >
-            } @if (specialityName.dirty && specialityName.hasError('pattern')) {
+            }
+            @if (specialityName.dirty && specialityName.hasError('pattern')) {
             <span class="help-block"
               >Name must begin with a letter or digit</span
             >
-            } @if (specialityForm.submitted || specialityName.dirty &&
+            }
+            @if (specialityForm.submitted || specialityName.dirty &&
             specialityName.hasError('required')) {
             <span class="help-block">Name is required</span>
             }

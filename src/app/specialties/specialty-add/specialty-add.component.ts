@@ -49,15 +49,13 @@ export class SpecialtyAddComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(specialty: Specialty) {
-    this.specialtyService.addSpecialty(specialty).subscribe(
-      {
-        next: (newSpecialty) => {
+    this.specialtyService.addSpecialty(specialty).subscribe({
+      next: (newSpecialty) => {
         this.speciality = newSpecialty;
         this.addedSuccess = true;
         this.newSpeciality.emit(this.speciality);
       },
-        error: (error) => (this.errorMessage = error as any),
-      },
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 }

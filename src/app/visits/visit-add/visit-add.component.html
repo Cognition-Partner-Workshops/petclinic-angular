@@ -102,11 +102,13 @@
             ></span>
             @if (description.dirty && description.hasError('required')) {
             <span class="help-block">Description is required</span>
-            } @if (description.dirty && description.hasError('minlength')) {
+            }
+            @if (description.dirty && description.hasError('minlength')) {
             <span class="help-block"
               >Description must be at least 1 characters long</span
             >
-            } @if (description.dirty && description.hasError('maxlength')) {
+            }
+            @if (description.dirty && description.hasError('maxlength')) {
             <span class="help-block"
               >Description may be at most 255 characters long</span
             >

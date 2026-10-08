@@ -53,12 +53,10 @@ export class OwnerListComponent implements OnInit {
           this.isOwnersDataReceived = true;
         }),
       )
-      .subscribe(
-        {
-          next: (owners) => (this.owners = owners),
-          error: (error) => (this.errorMessage = error as any),
-        },
-      );
+      .subscribe({
+        next: (owners) => (this.owners = owners),
+        error: (error) => (this.errorMessage = error as any),
+      });
   }
 
   onSelect(owner: Owner) {
@@ -77,17 +75,15 @@ export class OwnerListComponent implements OnInit {
       });
     }
     if (lastName !== '') {
-      this.ownerService.searchOwners(lastName).subscribe(
-        {
-          next: (owners) => {
+      this.ownerService.searchOwners(lastName).subscribe({
+        next: (owners) => {
           this.owners = owners;
           console.log('this.owners ' + this.owners);
         },
-          error: (error) => {
+        error: (error) => {
           this.owners = null;
         },
-        },
-      );
+      });
     }
   }
 }

@@ -64,26 +64,22 @@ export class PetEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.petTypeService.getPetTypes().subscribe(
-      {
-        next: (pettypes) => (this.petTypes = pettypes),
-        error: (error) => (this.errorMessage = error as any),
-      },
-    );
+    this.petTypeService.getPetTypes().subscribe({
+      next: (pettypes) => (this.petTypes = pettypes),
+      error: (error) => (this.errorMessage = error as any),
+    });
 
     const petId = this.route.snapshot.params.id;
-    this.petService.getPetById(petId).subscribe(
-      {
-        next: (pet) => {
+    this.petService.getPetById(petId).subscribe({
+      next: (pet) => {
         this.pet = pet;
         this.ownerService.getOwnerById(pet.ownerId).subscribe((response) => {
           this.currentOwner = response;
         });
         this.currentType = this.pet.type;
       },
-        error: (error) => (this.errorMessage = error as any),
-      },
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   onSubmit(pet: Pet) {
@@ -92,12 +88,10 @@ export class PetEditComponent implements OnInit {
     // format output from datepicker to short string yyyy-mm-dd format (rfc3339)
     pet.birthDate = moment(pet.birthDate).format('YYYY-MM-DD');
 
-    this.petService.updatePet(pet.id.toString(), pet).subscribe(
-      {
-        next: (res) => this.gotoOwnerDetail(this.currentOwner),
-        error: (error) => (this.errorMessage = error as any),
-      },
-    );
+    this.petService.updatePet(pet.id.toString(), pet).subscribe({
+      next: (res) => this.gotoOwnerDetail(this.currentOwner),
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   gotoOwnerDetail(owner: Owner) {
