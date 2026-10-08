@@ -28,19 +28,20 @@ export class PettypeListComponent implements OnInit {
       finalize(() => {
         this.isPetTypesDataReceived = true;
       })
-    ).subscribe(
-      pettypes => this.pettypes = pettypes,
-      error => this.errorMessage = error as any
-      );
+    ).subscribe({
+      next: pettypes => this.pettypes = pettypes,
+      error: error => this.errorMessage = error as any
+    });
   }
 
   deletePettype(pettype: PetType) {
-    this.pettypeService.deletePetType(pettype.id.toString()).subscribe(
-      response => {
+    this.pettypeService.deletePetType(pettype.id.toString()).subscribe({
+      next: response => {
         this.responseStatus = response;
         this.pettypes = this.pettypes.filter(currentItem => !(currentItem.id === pettype.id));
       },
-      error => this.errorMessage = error as any);
+      error: error => this.errorMessage = error as any
+    });
   }
 
   onNewPettype(newPetType: Specialty) {

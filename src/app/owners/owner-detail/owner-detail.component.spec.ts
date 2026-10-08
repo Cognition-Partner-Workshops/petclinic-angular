@@ -25,7 +25,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { ENGINE_METHOD_PKEY_ASN1_METHS } from 'constants';
 import { OwnerDetailComponent } from './owner-detail.component';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -98,17 +97,16 @@ describe('OwnerDetailComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('find owner using ownerId', () => {
+  it('find owner using ownerId', async () => {
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      // wait for async getOwners
-      fixture.detectChanges(); // update view with name
-      de = fixture.debugElement.query(By.css('.ownerFullName'));
-      el = de.nativeElement;
-      expect(el.innerText).toBe(
-        owner.firstName.toString() + ' ' + owner.lastName.toString()
-      );
-    });
+    // wait for async getOwners
+    await fixture.whenStable();
+    fixture.detectChanges(); // update view with name
+    de = fixture.debugElement.query(By.css('.ownerFullName'));
+    el = de.nativeElement;
+    expect(el.innerText).toBe(
+      owner.firstName.toString() + ' ' + owner.lastName.toString()
+    );
   });
 
   it('routing to owners page on click of editOwner,addPet,gotoOwnersList', () => {

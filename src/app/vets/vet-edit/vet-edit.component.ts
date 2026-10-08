@@ -85,12 +85,13 @@ this.idCtrl = new FormControl(null);
   }
 
   onSubmit(vet: Vet) {
-    this.vetService.updateVet(vet.id.toString(), vet).subscribe(
-      res => {
+    this.vetService.updateVet(vet.id.toString(), vet).subscribe({
+      next: res => {
         console.log('update success');
         this.gotoVetList();
       },
-      error => this.errorMessage = error as any);
+      error: error => this.errorMessage = error as any
+    });
 
   }
 

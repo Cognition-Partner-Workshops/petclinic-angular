@@ -37,22 +37,28 @@ import {HttpErrorHandler} from './error.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
-@NgModule({ declarations: [
-        AppComponent,
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        FormsModule,
-        OwnersModule,
-        PetsModule,
-        VisitsModule,
-        PetTypesModule,
-        VetsModule,
-        SpecialtiesModule,
-        PartsModule,
-        BrowserAnimationsModule,
-        AppRoutingModule], providers: [
-        HttpErrorHandler,
-        provideHttpClient(withXhr(), withInterceptorsFromDi()),
-    ] })
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    OwnersModule,
+    PetsModule,
+    VisitsModule,
+    PetTypesModule,
+    VetsModule,
+    SpecialtiesModule,
+    PartsModule,
+    BrowserAnimationsModule,
+    AppRoutingModule
+  ],
+  providers: [
+    HttpErrorHandler,
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
+  ],
+  bootstrap: [AppComponent]
+})
 export class AppModule {
 }
