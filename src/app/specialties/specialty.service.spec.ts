@@ -24,13 +24,13 @@
 
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import {SpecialtyService} from './specialty.service';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('SpecialtyService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SpecialtyService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+      providers: [SpecialtyService, provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()]
     });
   });
 

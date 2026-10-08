@@ -20,9 +20,9 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Specialty} from '../../specialties/specialty';
-import {SpecialtyService} from 'app/specialties/specialty.service';
+import {SpecialtyService} from '../../specialties/specialty.service';
 import {Vet} from '../vet';
 import {Router} from '@angular/router';
 import {VetService} from '../vet.service';
@@ -31,6 +31,7 @@ import {VetService} from '../vet.service';
   selector: 'app-vet-add',
   templateUrl: './vet-add.component.html',
   styleUrls: ['./vet-add.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class VetAddComponent implements OnInit {

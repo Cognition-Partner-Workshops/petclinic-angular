@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {OwnerService} from '../owner.service';
 import {Owner} from '../owner';
 import {Router} from '@angular/router';
@@ -29,6 +29,7 @@ import {Router} from '@angular/router';
   selector: 'app-owner-add',
   templateUrl: './owner-add.component.html',
   styleUrls: ['./owner-add.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class OwnerAddComponent implements OnInit {

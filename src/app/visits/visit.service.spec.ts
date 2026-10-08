@@ -24,13 +24,13 @@
 
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import {VisitService} from './visit.service';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('VisitService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [VisitService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+      providers: [VisitService, provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()]
     });
   });
 

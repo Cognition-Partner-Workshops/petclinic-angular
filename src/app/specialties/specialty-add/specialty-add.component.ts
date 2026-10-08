@@ -22,6 +22,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Specialty } from '../specialty';
@@ -31,6 +32,7 @@ import { SpecialtyService } from '../specialty.service';
   selector: 'app-specialty-add',
   templateUrl: './specialty-add.component.html',
   styleUrls: ['./specialty-add.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class SpecialtyAddComponent implements OnInit {

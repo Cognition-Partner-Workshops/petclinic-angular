@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Specialty} from '../specialty';
 import {SpecialtyService} from '../specialty.service';
 import {Router} from '@angular/router';
@@ -30,6 +30,7 @@ import { finalize } from 'rxjs/operators';
   selector: 'app-specialty-list',
   templateUrl: './specialty-list.component.html',
   styleUrls: ['./specialty-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class SpecialtyListComponent implements OnInit {

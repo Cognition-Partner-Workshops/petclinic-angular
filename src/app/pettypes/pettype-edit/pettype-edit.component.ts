@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PetType} from '../pettype';
 import {PetTypeService} from '../pettype.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -29,6 +29,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   selector: 'app-pettype-edit',
   templateUrl: './pettype-edit.component.html',
   styleUrls: ['./pettype-edit.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
 export class PettypeEditComponent implements OnInit {
