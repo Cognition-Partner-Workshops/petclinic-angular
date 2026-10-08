@@ -3,8 +3,13 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",
+    "ignoreDeprecations": "6.0",
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
     "sourceMap": true,
+    "esModuleInterop": true,
     "declaration": false,
+    "lib": ["es2022", "dom"],
     "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
