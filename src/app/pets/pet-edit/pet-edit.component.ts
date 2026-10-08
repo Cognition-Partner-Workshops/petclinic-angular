@@ -21,7 +21,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {Pet} from '../pet';
 import {PetService} from '../pet.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -39,17 +39,19 @@ import {OwnerService} from '../../owners/owner.service';
     standalone: false
 })
 export class PetEditComponent implements OnInit {
+  private petService = inject(PetService);
+  private petTypeService = inject(PetTypeService);
+  private ownerService = inject(OwnerService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+
   pet: Pet;
   @Input() currentType: PetType;
   currentOwner: Owner;
   petTypes: PetType[];
   errorMessage: string;
 
-  constructor(private petService: PetService,
-              private petTypeService: PetTypeService,
-              private ownerService: OwnerService,
-              private router: Router,
-              private route: ActivatedRoute) {
+  constructor() {
     this.pet = {} as Pet;
     this.currentOwner = {} as Owner;
     this.currentType = {} as PetType;

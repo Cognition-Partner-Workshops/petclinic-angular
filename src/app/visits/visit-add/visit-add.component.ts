@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {Visit} from '../visit';
 import {VisitService} from '../visit.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -39,6 +39,12 @@ import {OwnerService} from '../../owners/owner.service';
     standalone: false
 })
 export class VisitAddComponent implements OnInit {
+  private visitService = inject(VisitService);
+  private petService = inject(PetService);
+  private ownerService = inject(OwnerService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+
 
   visit: Visit;
   currentPet: Pet;
@@ -47,11 +53,7 @@ export class VisitAddComponent implements OnInit {
   addedSuccess = false;
   errorMessage: string;
 
-  constructor(private visitService: VisitService,
-              private petService: PetService,
-              private ownerService: OwnerService,
-              private router: Router,
-              private route: ActivatedRoute) {
+  constructor() {
     this.visit = {} as Visit;
     this.currentPet = {} as Pet;
     this.currentOwner = {} as Owner;

@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {Vet} from '../vet';
 import {VetService} from '../vet.service';
 import {Router} from '@angular/router';
@@ -33,12 +33,15 @@ import { finalize } from 'rxjs/operators';
     standalone: false
 })
 export class VetListComponent implements OnInit {
+  private vetService = inject(VetService);
+  private router = inject(Router);
+
   vets: Vet[];
   errorMessage: string;
   responseStatus: number;
   isVetDataReceived: boolean = false;
 
-  constructor(private vetService: VetService, private router: Router) {
+  constructor() {
     this.vets = [];
   }
 

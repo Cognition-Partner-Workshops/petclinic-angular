@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {Specialty} from '../specialty';
 import {SpecialtyService} from '../specialty.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -32,10 +32,14 @@ import {ActivatedRoute, Router} from '@angular/router';
     standalone: false
 })
 export class SpecialtyEditComponent implements OnInit {
+  private specialtyService = inject(SpecialtyService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   specialty: Specialty;
   errorMessage: string;
 
-  constructor(private specialtyService: SpecialtyService, private route: ActivatedRoute, private router: Router) {
+  constructor() {
     this.specialty = {} as Specialty;
   }
 

@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {PetType} from '../pettype';
 import {PetTypeService} from '../pettype.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -32,10 +32,14 @@ import {ActivatedRoute, Router} from '@angular/router';
     standalone: false
 })
 export class PettypeEditComponent implements OnInit {
+  private pettypeService = inject(PetTypeService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   pettype: PetType;
   errorMessage: string;
 
-  constructor(private pettypeService: PetTypeService, private route: ActivatedRoute, private router: Router) {
+  constructor() {
     this.pettype = {} as PetType;
   }
 

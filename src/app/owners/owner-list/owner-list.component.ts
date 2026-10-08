@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {OwnerService} from '../owner.service';
 import {Owner} from '../owner';
 import {Router} from '@angular/router';
@@ -33,15 +33,14 @@ import { finalize } from 'rxjs/operators';
     standalone: false
 })
 export class OwnerListComponent implements OnInit {
+  private router = inject(Router);
+  private ownerService = inject(OwnerService);
+
   errorMessage: string;
   lastName: string;
   owners: Owner[];
   listOfOwnersWithLastName: Owner[];
   isOwnersDataReceived: boolean = false;
-
-  constructor(private router: Router, private ownerService: OwnerService) {
-
-  }
 
   ngOnInit() {
     this.ownerService.getOwners().pipe(

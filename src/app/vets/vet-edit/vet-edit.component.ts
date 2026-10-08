@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {Vet} from '../vet';
 import {VetService} from '../vet.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -35,6 +35,12 @@ import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
     standalone: false
 })
 export class VetEditComponent implements OnInit {
+  private formBuilder = inject(FormBuilder);
+  private specialtyService = inject(SpecialtyService);
+  private vetService = inject(VetService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   vetEditForm: FormGroup;
   idCtrl: FormControl;
   firstNameCtrl: FormControl;
@@ -44,8 +50,7 @@ export class VetEditComponent implements OnInit {
   specList: Specialty[];
   errorMessage: string;
 
-  constructor(private formBuilder: FormBuilder, private specialtyService: SpecialtyService,
-              private vetService: VetService, private route: ActivatedRoute, private router: Router) {
+  constructor() {
     this.vet = {} as Vet;
     this.specList = [] as Specialty[];
     this.buildForm();
