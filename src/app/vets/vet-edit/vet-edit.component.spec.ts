@@ -46,8 +46,8 @@ describe('VetEditComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-// TODO complete test
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  // TODO complete test (Jasmine 5 rejects a describe() with no specs)
+  xit('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });
