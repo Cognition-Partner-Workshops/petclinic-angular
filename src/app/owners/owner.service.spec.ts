@@ -23,8 +23,8 @@
  */
 
 import {
-  HttpClientTestingModule,
   HttpTestingController,
+  provideHttpClientTesting,
 } from '@angular/common/http/testing';
 // Other imports
 import { TestBed } from '@angular/core/testing';
@@ -32,6 +32,9 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpResponse,
+  provideHttpClient,
+  withInterceptorsFromDi,
+  withXhr,
 } from '@angular/common/http';
 
 import { HttpErrorHandler } from '../error.service';
@@ -48,12 +51,17 @@ describe('OwnerService', () => {
   let httpClientSpy: { get: jasmine.Spy };
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [OwnerService, HttpErrorHandler],
+      imports: [],
+      providers: [
+        OwnerService,
+        HttpErrorHandler,
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
     });
 
-    httpTestingController = TestBed.get(HttpTestingController);
-    ownerService = TestBed.get(OwnerService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    ownerService = TestBed.inject(OwnerService);
     expectedOwners = [
       { id: 1, firstName: 'A' },
       { id: 2, firstName: 'B' },
@@ -63,7 +71,7 @@ describe('OwnerService', () => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
     let httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject<HttpTestingController>(
-      HttpTestingController as Type<HttpTestingController>
+      HttpTestingController as Type<HttpTestingController>,
     );
     ownerService = TestBed.inject(OwnerService);
   });
@@ -80,9 +88,9 @@ describe('OwnerService', () => {
         (owners) =>
           expect(owners).toEqual(
             expectedOwners,
-            'should return expected owners'
+            'should return expected owners',
           ),
-        fail
+        fail,
       );
 
     // OwnerService should have made one request to GET owners from expected URL
@@ -99,7 +107,7 @@ describe('OwnerService', () => {
     });
     const id = '1';
     const req = httpTestingController.expectOne(
-      ownerService.entityUrl + '/' + id
+      ownerService.entityUrl + '/' + id,
     );
     expect(req.request.method).toEqual('GET');
     req.flush(expectedOwners[0]);
@@ -113,15 +121,14 @@ describe('OwnerService', () => {
       address: '110 W. Church St.',
       city: 'Madison',
       telephone: '6085551023',
-      pets: []
-
+      pets: [],
     };
 
     ownerService
       .addOwner(owner)
       .subscribe(
         (data) => expect(data).toEqual(owner, 'should return new owner'),
-        fail
+        fail,
       );
 
     const req = httpTestingController.expectOne(ownerService.entityUrl);
@@ -145,14 +152,16 @@ describe('OwnerService', () => {
       address: '110 W. Church St.',
       city: 'Madison',
       telephone: '6085551023',
-      pets: []
+      pets: [],
     };
 
     ownerService
       .updateOwner(owner.id.toString(), owner)
       .subscribe((data) => expect(data).toEqual(owner, 'updated owner'), fail);
 
-    const req = httpTestingController.expectOne(ownerService.entityUrl + '/'+owner.id);
+    const req = httpTestingController.expectOne(
+      ownerService.entityUrl + '/' + owner.id,
+    );
     expect(req.request.method).toEqual('PUT');
     expect(req.request.body).toEqual(owner);
     const expectedResponse = new HttpResponse({
@@ -172,26 +181,27 @@ describe('OwnerService', () => {
   });
 
   it('search for delete Owner', () => {
-
     const errorResponse = new HttpErrorResponse({
       error: '404 error',
       status: 404,
-      statusText: 'Not Found'
+      statusText: 'Not Found',
     });
 
     httpClientSpy.get.and.returnValue(asyncError(errorResponse));
 
     ownerService.getOwnerById(1).subscribe((owners) => {
       fail('Should have failed with 404 error'),
-      (error: HttpErrorResponse) => {
-        expect(error.status).toEqual(404);
-        expect(error.error).toContain('404 error');
-      }});
-
-      const req = httpTestingController.expectOne(
-        { method: 'GET', url:ownerService.entityUrl + '/1' });
-
+        (error: HttpErrorResponse) => {
+          expect(error.status).toEqual(404);
+          expect(error.error).toContain('404 error');
+        };
     });
+
+    const req = httpTestingController.expectOne({
+      method: 'GET',
+      url: ownerService.entityUrl + '/1',
+    });
+  });
 });
 
 export function asyncError<T>(errorObject: any) {

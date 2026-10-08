@@ -1,21 +1,16 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": false,
     "outDir": "./dist/out-tsc",
-    "baseUrl": "src",
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
     "module": "es2020",
     "useDefineForClassFields": false
   },

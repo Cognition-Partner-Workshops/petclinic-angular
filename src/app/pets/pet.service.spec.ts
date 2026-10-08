@@ -18,26 +18,41 @@
 
 /* tslint:disable:no-unused-variable */
 
-
 /**
  * @author Vitaliy Fedoriv
  */
 
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
-import {PetService} from './pet.service';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-import {HttpClient} from '@angular/common/http';
+import { PetService } from './pet.service';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
+import {
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi,
+  withXhr,
+} from '@angular/common/http';
 
 describe('PetService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      // Import the HttpClient mocking services
-      imports: [HttpClientTestingModule],
-      providers: [PetService]
+      imports: [],
+      providers: [
+        PetService,
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
     });
   });
 
-  it('should ...', waitForAsync(inject([HttpTestingController], (petService: PetService, http: HttpClient) => {
-    expect(petService).toBeTruthy();
-  })));
+  it('should ...', waitForAsync(
+    inject(
+      [HttpTestingController],
+      (petService: PetService, http: HttpClient) => {
+        expect(petService).toBeTruthy();
+      },
+    ),
+  ));
 });

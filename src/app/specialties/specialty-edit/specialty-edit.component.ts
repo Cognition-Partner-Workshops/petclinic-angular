@@ -20,42 +20,56 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
-import {Specialty} from '../specialty';
-import {SpecialtyService} from '../specialty.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { Specialty } from '../specialty';
+import { SpecialtyService } from '../specialty.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-specialty-edit',
   templateUrl: './specialty-edit.component.html',
-  styleUrls: ['./specialty-edit.component.css']
+  styleUrls: ['./specialty-edit.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class SpecialtyEditComponent implements OnInit {
+  private specialtyService = inject(SpecialtyService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   specialty: Specialty;
   errorMessage: string;
 
-  constructor(private specialtyService: SpecialtyService, private route: ActivatedRoute, private router: Router) {
+  constructor() {
     this.specialty = {} as Specialty;
   }
 
   ngOnInit() {
     const specId = this.route.snapshot.params.id;
     this.specialtyService.getSpecialtyById(specId).subscribe(
-      specialty => this.specialty = specialty,
-      error => this.errorMessage = error as any);
+      (specialty) => (this.specialty = specialty),
+      (error) => (this.errorMessage = error as any),
+    );
   }
 
   onSubmit(specialty: Specialty) {
-    this.specialtyService.updateSpecialty(specialty.id.toString(), specialty).subscribe(
-      res => {
-        console.log('update success');
-        this.onBack();
-      },
-      error => this.errorMessage = error as any);
- }
+    this.specialtyService
+      .updateSpecialty(specialty.id.toString(), specialty)
+      .subscribe(
+        (res) => {
+          console.log('update success');
+          this.onBack();
+        },
+        (error) => (this.errorMessage = error as any),
+      );
+  }
 
   onBack() {
     this.router.navigate(['/specialties']);
   }
-
 }

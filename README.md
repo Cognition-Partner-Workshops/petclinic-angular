@@ -15,27 +15,19 @@ Warning: **client only**.
 
 ## Installation
 
-1. Update angular-cli to latest version (8.0.3 current)
-as described on [angular-cli github readme.md](https://github.com/angular/angular-cli#updating-angular-cli)
+Requirements: Node.js `^22.22.3 || ^24.15.0 || >=26.0.0` (see [.nvmrc](.nvmrc)) and npm.
 
-````
-npm uninstall -g angular-cli @angular/cli
-npm cache clean
-npm install -g @angular/cli@latest
-````
 Clone project from github
 ````
 git clone https://github.com/spring-petclinic/spring-petclinic-angular.git
 ````
-Install local project package
+Install local project packages (the Angular CLI is a local dev dependency, use `npx ng ...` or the npm scripts)
 ````
-npm install --save-dev @angular/cli@latest
-if npm version > 5.0 delete package-lock.json file  ( bug in npm 5.0 - this file prevent correct packages install)
-npm install
+npm ci
 ````
 
-Now project use Angular CLI v.8.0.3 and Angular v.8.0.1
-You can see current dependencies in [package.json](package.json) file.
+The project uses Angular CLI v22 and Angular v22. You can see current dependencies in [package.json](package.json) file.
+See [ANGULAR_UPGRADE.md](ANGULAR_UPGRADE.md) for the breaking changes handled when upgrading from Angular 16.
 
 ## Development server
 
@@ -47,7 +39,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use `ng build --configuration production` for a production build.
 
 You can also build the application in a dedicated docker image using the provided `Dockerfile` as follows:
 
@@ -78,7 +70,7 @@ compodoc -p src/tsconfig.app.json -d docs
 
 1. Build Angular application:
 
-  ng build --prod --base-href=/petclinic/ --deploy-url=/petclinic/
+  ng build --configuration production --base-href=/petclinic/
 
 2. Create sub-directory **/petclinic** in default nginx directory **/usr/share/nginx/html**
 
@@ -107,7 +99,7 @@ server {
 
 1. Build Angular application:
 
-ng build --prod --base-href=/petclinic/ --deploy-url=/petclinic/
+ng build --configuration production --base-href=/petclinic/
 
 2. Create sub-directory **/petclinic** in default Apache directory **/var/www/html**
 
@@ -160,12 +152,12 @@ sudo systemctl restart httpd
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io), or `npm run test-headless` for a single headless Chrome run.
 
 ## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+The legacy Protractor e2e suite was removed during the Angular 22 upgrade (Protractor is end-of-life and no longer supported by the Angular CLI).
+Run `ng e2e` to be prompted to add a supported e2e framework (Cypress, Playwright, Nightwatch, WebdriverIO, Puppeteer).
 
 ## Further help
 

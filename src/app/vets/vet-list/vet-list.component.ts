@@ -20,44 +20,61 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
-import {Vet} from '../vet';
-import {VetService} from '../vet.service';
-import {Router} from '@angular/router';
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { Vet } from '../vet';
+import { VetService } from '../vet.service';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-vet-list',
   templateUrl: './vet-list.component.html',
-  styleUrls: ['./vet-list.component.css']
+  styleUrls: ['./vet-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class VetListComponent implements OnInit {
+  private vetService = inject(VetService);
+  private router = inject(Router);
+
   vets: Vet[];
   errorMessage: string;
   responseStatus: number;
   isVetDataReceived: boolean = false;
 
-  constructor(private vetService: VetService, private router: Router) {
+  constructor() {
     this.vets = [];
   }
 
   ngOnInit() {
-    this.vetService.getVets().pipe(
-      finalize(() => {
-        this.isVetDataReceived = true;
-      })
-    ).subscribe(
-      vets => this.vets = vets,
-      error => this.errorMessage = error as any);
+    this.vetService
+      .getVets()
+      .pipe(
+        finalize(() => {
+          this.isVetDataReceived = true;
+        }),
+      )
+      .subscribe(
+        (vets) => (this.vets = vets),
+        (error) => (this.errorMessage = error as any),
+      );
   }
 
   deleteVet(vet: Vet) {
     this.vetService.deleteVet(vet.id.toString()).subscribe(
-      response => {
+      (response) => {
         this.responseStatus = response;
-        this.vets = this.vets.filter(currentItem => !(currentItem.id === vet.id));
+        this.vets = this.vets.filter(
+          (currentItem) => !(currentItem.id === vet.id),
+        );
       },
-      error => this.errorMessage = error as any);
+      (error) => (this.errorMessage = error as any),
+    );
   }
 
   gotoHome() {

@@ -16,33 +16,42 @@
  *
  */
 
-
 /**
  * @author Vitaliy Fedoriv
  */
 
-import {Component, Input, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {PetService} from '../pet.service';
-import {Pet} from '../pet';
+import {
+  Component,
+  Input,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { PetService } from '../pet.service';
+import { Pet } from '../pet';
 
 @Component({
   selector: 'app-pet-list',
   templateUrl: './pet-list.component.html',
-  styleUrls: ['./pet-list.component.css']
+  styleUrls: ['./pet-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class PetListComponent implements OnInit {
+  private router = inject(Router);
+  private petService = inject(PetService);
+
   errorMessage: string;
   @Input() pet: Pet;
   responseStatus: number;
   deleteSuccess = false;
 
-  constructor(private router: Router, private petService: PetService) {
+  constructor() {
     this.pet = {} as Pet;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   editPet(pet: Pet) {
     this.router.navigate(['/pets', pet.id, 'edit']);
@@ -50,15 +59,15 @@ export class PetListComponent implements OnInit {
 
   deletePet(pet: Pet) {
     this.petService.deletePet(pet.id.toString()).subscribe(
-      response => {
+      (response) => {
         this.deleteSuccess = true;
         this.pet = {} as Pet;
       },
-      error => this.errorMessage = error as any);
+      (error) => (this.errorMessage = error as any),
+    );
   }
 
   addVisit(pet: Pet) {
     this.router.navigate(['/pets', pet.id, 'visits', 'add']);
   }
-
 }

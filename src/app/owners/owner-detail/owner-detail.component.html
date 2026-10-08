@@ -18,14 +18,16 @@
 
 <div class="container-fluid">
   <div class="container xd-container">
-
     <h2>Owner Information</h2>
-
 
     <table class="table table-striped">
       <tr>
         <th>Name</th>
-        <td><b class="ownerFullName">{{ owner.firstName }} {{ owner.lastName }}</b></td>
+        <td>
+          <b class="ownerFullName"
+            >{{ owner.firstName }} {{ owner.lastName }}</b
+          >
+        </td>
       </tr>
       <tr>
         <th>Address</th>
@@ -52,7 +54,9 @@
 
     <table class="table table-striped">
       <tr>
-        <app-pet-list *ngFor="let pet of owner.pets" [pet]="pet"></app-pet-list>
+        @for (pet of owner.pets; track pet) {
+        <app-pet-list [pet]="pet"></app-pet-list>
+        }
       </tr>
     </table>
   </div>
