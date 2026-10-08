@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Visit} from '../visit';
 import {VisitService} from '../visit.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -36,6 +36,7 @@ import {OwnerService} from '../../owners/owner.service';
     selector: 'app-visit-add',
     templateUrl: './visit-add.component.html',
     styleUrls: ['./visit-add.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class VisitAddComponent implements OnInit {

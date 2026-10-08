@@ -26,13 +26,13 @@
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import {PetService} from './pet.service';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 
 describe('PetService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
     imports: [],
-    providers: [PetService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    providers: [PetService, provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()]
 });
   });
 

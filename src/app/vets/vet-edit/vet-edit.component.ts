@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Vet} from '../vet';
 import {VetService} from '../vet.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -32,6 +32,7 @@ import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
     selector: 'app-vet-edit',
     templateUrl: './vet-edit.component.html',
     styleUrls: ['./vet-edit.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class VetEditComponent implements OnInit {

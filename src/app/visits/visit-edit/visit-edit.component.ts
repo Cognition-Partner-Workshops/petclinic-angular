@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Visit} from '../visit';
 import {Pet} from '../../pets/pet';
 import {Owner} from '../../owners/owner';
@@ -36,6 +36,7 @@ import {PetService} from '../../pets/pet.service';
     selector: 'app-visit-edit',
     templateUrl: './visit-edit.component.html',
     styleUrls: ['./visit-edit.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class VisitEditComponent implements OnInit {

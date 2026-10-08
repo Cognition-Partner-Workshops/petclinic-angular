@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PetType} from '../pettype';
 import {Router} from '@angular/router';
 import {PetTypeService} from '../pettype.service';
@@ -9,6 +9,7 @@ import { finalize } from 'rxjs/operators';
     selector: 'app-pettype-list',
     templateUrl: './pettype-list.component.html',
     styleUrls: ['./pettype-list.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PettypeListComponent implements OnInit {
