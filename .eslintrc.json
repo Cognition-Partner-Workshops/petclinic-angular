@@ -41,6 +41,8 @@
         ],
         // The application intentionally retains its NgModule architecture.
         "@angular-eslint/prefer-standalone": "off",
+        // Keep the existing constructor-injection style instead of rewriting unrelated services.
+        "@angular-eslint/prefer-inject": "off",
         // Note: you must disable the base rule as it can report incorrect errors
         "quotes": "off",
         "@typescript-eslint/quotes": [
