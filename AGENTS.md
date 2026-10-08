@@ -2,7 +2,7 @@
 
 ## Repository Purpose
 
-Angular 16 frontend for the Spring PetClinic ecosystem. Manages pet owners, veterinary staff, and appointment records. Backend API base URL: `http://localhost:9966/petclinic/api/`.
+Angular 22 frontend for the Spring PetClinic ecosystem. Manages pet owners, veterinary staff, and appointment records. Backend API base URL: `http://localhost:9966/petclinic/api/`.
 
 ## React Migration Standards
 
