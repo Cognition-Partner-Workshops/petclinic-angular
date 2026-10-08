@@ -22,20 +22,20 @@
  * @author Vitaliy Fedoriv
  */
 
-import { inject, TestBed, waitForAsync } from "@angular/core/testing";
-import { VetService } from "./vet.service";
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { VetService } from './vet.service';
 import {
   HttpClient,
   provideHttpClient,
   withInterceptorsFromDi,
   withXhr,
-} from "@angular/common/http";
+} from '@angular/common/http';
 import {
   HttpTestingController,
   provideHttpClientTesting,
-} from "@angular/common/http/testing";
+} from '@angular/common/http/testing';
 
-describe("VetService", () => {
+describe('VetService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
@@ -47,7 +47,7 @@ describe("VetService", () => {
     });
   });
 
-  it("should ...", waitForAsync(
+  it('should ...', waitForAsync(
     inject(
       [HttpTestingController],
       (vetService: VetService, http: HttpClient) => {

@@ -24,22 +24,22 @@ import {
   ViewChild,
   inject,
   ChangeDetectionStrategy,
-} from "@angular/core";
-import { NgForm } from "@angular/forms";
-import { Specialty } from "../specialty";
-import { SpecialtyService } from "../specialty.service";
+} from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Specialty } from '../specialty';
+import { SpecialtyService } from '../specialty.service';
 
 @Component({
-  selector: "app-specialty-add",
-  templateUrl: "./specialty-add.component.html",
-  styleUrls: ["./specialty-add.component.css"],
+  selector: 'app-specialty-add',
+  templateUrl: './specialty-add.component.html',
+  styleUrls: ['./specialty-add.component.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class SpecialtyAddComponent implements OnInit {
   private specialtyService = inject(SpecialtyService);
 
-  @ViewChild("specialityForm", { static: true }) specialityForm: NgForm;
+  @ViewChild('specialityForm', { static: true }) specialityForm: NgForm;
   speciality: Specialty;
   addedSuccess = false;
   errorMessage: string;

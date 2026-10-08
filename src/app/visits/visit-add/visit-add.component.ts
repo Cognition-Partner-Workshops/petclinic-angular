@@ -25,22 +25,22 @@ import {
   OnInit,
   inject,
   ChangeDetectionStrategy,
-} from "@angular/core";
-import { Visit } from "../visit";
-import { VisitService } from "../visit.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { PetService } from "../../pets/pet.service";
-import { Pet } from "../../pets/pet";
-import { PetType } from "../../pettypes/pettype";
-import { Owner } from "../../owners/owner";
+} from '@angular/core';
+import { Visit } from '../visit';
+import { VisitService } from '../visit.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PetService } from '../../pets/pet.service';
+import { Pet } from '../../pets/pet';
+import { PetType } from '../../pettypes/pettype';
+import { Owner } from '../../owners/owner';
 
 import moment from 'moment';
-import { OwnerService } from "../../owners/owner.service";
+import { OwnerService } from '../../owners/owner.service';
 
 @Component({
-  selector: "app-visit-add",
-  templateUrl: "./visit-add.component.html",
-  styleUrls: ["./visit-add.component.css"],
+  selector: 'app-visit-add',
+  templateUrl: './visit-add.component.html',
+  styleUrls: ['./visit-add.component.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
@@ -86,7 +86,7 @@ export class VisitAddComponent implements OnInit {
     const that = this;
 
     // format output from datepicker to short string yyyy-mm-dd format (rfc3339)
-    visit.date = moment(visit.date).format("YYYY-MM-DD");
+    visit.date = moment(visit.date).format('YYYY-MM-DD');
 
     this.visitService.addVisit(visit).subscribe(
       (newVisit) => {
@@ -99,6 +99,6 @@ export class VisitAddComponent implements OnInit {
   }
 
   gotoOwnerDetail() {
-    this.router.navigate(["/owners", this.currentOwner.id]);
+    this.router.navigate(['/owners', this.currentOwner.id]);
   }
 }

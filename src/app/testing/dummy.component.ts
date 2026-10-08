@@ -20,10 +20,10 @@
  * @author Vitaliy Fedoriv
  */
 
-import { Component, ChangeDetectionStrategy } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  template: "",
+  template: '',
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })

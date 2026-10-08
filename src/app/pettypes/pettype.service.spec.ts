@@ -22,20 +22,20 @@
  * @author Vitaliy Fedoriv
  */
 
-import { inject, TestBed, waitForAsync } from "@angular/core/testing";
-import { PetTypeService } from "./pettype.service";
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { PetTypeService } from './pettype.service';
 import {
   HttpClient,
   provideHttpClient,
   withInterceptorsFromDi,
   withXhr,
-} from "@angular/common/http";
+} from '@angular/common/http';
 import {
   HttpTestingController,
   provideHttpClientTesting,
-} from "@angular/common/http/testing";
+} from '@angular/common/http/testing';
 
-describe("PetTypeService", () => {
+describe('PetTypeService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
@@ -47,7 +47,7 @@ describe("PetTypeService", () => {
     });
   });
 
-  it("should ...", waitForAsync(
+  it('should ...', waitForAsync(
     inject(
       [HttpTestingController],
       (petTypeService: PetTypeService, http: HttpClient) => {

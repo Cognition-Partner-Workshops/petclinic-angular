@@ -26,15 +26,15 @@ import {
   OnInit,
   inject,
   ChangeDetectionStrategy,
-} from "@angular/core";
-import { Router } from "@angular/router";
-import { PetService } from "../pet.service";
-import { Pet } from "../pet";
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { PetService } from '../pet.service';
+import { Pet } from '../pet';
 
 @Component({
-  selector: "app-pet-list",
-  templateUrl: "./pet-list.component.html",
-  styleUrls: ["./pet-list.component.css"],
+  selector: 'app-pet-list',
+  templateUrl: './pet-list.component.html',
+  styleUrls: ['./pet-list.component.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
@@ -54,7 +54,7 @@ export class PetListComponent implements OnInit {
   ngOnInit() {}
 
   editPet(pet: Pet) {
-    this.router.navigate(["/pets", pet.id, "edit"]);
+    this.router.navigate(['/pets', pet.id, 'edit']);
   }
 
   deletePet(pet: Pet) {
@@ -68,6 +68,6 @@ export class PetListComponent implements OnInit {
   }
 
   addVisit(pet: Pet) {
-    this.router.navigate(["/pets", pet.id, "visits", "add"]);
+    this.router.navigate(['/pets', pet.id, 'visits', 'add']);
   }
 }

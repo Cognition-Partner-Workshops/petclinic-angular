@@ -25,15 +25,15 @@ import {
   OnInit,
   inject,
   ChangeDetectionStrategy,
-} from "@angular/core";
-import { Specialty } from "../specialty";
-import { SpecialtyService } from "../specialty.service";
-import { ActivatedRoute, Router } from "@angular/router";
+} from '@angular/core';
+import { Specialty } from '../specialty';
+import { SpecialtyService } from '../specialty.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: "app-specialty-edit",
-  templateUrl: "./specialty-edit.component.html",
-  styleUrls: ["./specialty-edit.component.css"],
+  selector: 'app-specialty-edit',
+  templateUrl: './specialty-edit.component.html',
+  styleUrls: ['./specialty-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
@@ -62,7 +62,7 @@ export class SpecialtyEditComponent implements OnInit {
       .updateSpecialty(specialty.id.toString(), specialty)
       .subscribe(
         (res) => {
-          console.log("update success");
+          console.log('update success');
           this.onBack();
         },
         (error) => (this.errorMessage = error as any),
@@ -70,6 +70,6 @@ export class SpecialtyEditComponent implements OnInit {
   }
 
   onBack() {
-    this.router.navigate(["/specialties"]);
+    this.router.navigate(['/specialties']);
   }
 }

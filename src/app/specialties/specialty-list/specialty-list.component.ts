@@ -25,16 +25,16 @@ import {
   OnInit,
   inject,
   ChangeDetectionStrategy,
-} from "@angular/core";
-import { Specialty } from "../specialty";
-import { SpecialtyService } from "../specialty.service";
-import { Router } from "@angular/router";
-import { finalize } from "rxjs/operators";
+} from '@angular/core';
+import { Specialty } from '../specialty';
+import { SpecialtyService } from '../specialty.service';
+import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 
 @Component({
-  selector: "app-specialty-list",
-  templateUrl: "./specialty-list.component.html",
-  styleUrls: ["./specialty-list.component.css"],
+  selector: 'app-specialty-list',
+  templateUrl: './specialty-list.component.html',
+  styleUrls: ['./specialty-list.component.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
@@ -89,13 +89,13 @@ export class SpecialtyListComponent implements OnInit {
 
   showEditSpecialtyComponent(updatedSpecialty: Specialty) {
     this.router.navigate([
-      "/specialties",
+      '/specialties',
       updatedSpecialty.id.toString(),
-      "edit",
+      'edit',
     ]);
   }
 
   gotoHome() {
-    this.router.navigate(["/welcome"]);
+    this.router.navigate(['/welcome']);
   }
 }

@@ -26,15 +26,15 @@ import {
   OnInit,
   inject,
   ChangeDetectionStrategy,
-} from "@angular/core";
-import { Visit } from "../visit";
-import { VisitService } from "../visit.service";
-import { Router } from "@angular/router";
+} from '@angular/core';
+import { Visit } from '../visit';
+import { VisitService } from '../visit.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-visit-list",
-  templateUrl: "./visit-list.component.html",
-  styleUrls: ["./visit-list.component.css"],
+  selector: 'app-visit-list',
+  templateUrl: './visit-list.component.html',
+  styleUrls: ['./visit-list.component.css'],
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
@@ -54,14 +54,14 @@ export class VisitListComponent implements OnInit {
   ngOnInit() {}
 
   editVisit(visit: Visit) {
-    this.router.navigate(["/visits", visit.id, "edit"]);
+    this.router.navigate(['/visits', visit.id, 'edit']);
   }
 
   deleteVisit(visit: Visit) {
     this.visitService.deleteVisit(visit.id.toString()).subscribe(
       (response) => {
         this.responseStatus = response;
-        console.log("delete success");
+        console.log('delete success');
         this.visits.splice(this.visits.indexOf(visit), 1);
         if (this.visits.length === 0) {
           this.noVisits = true;

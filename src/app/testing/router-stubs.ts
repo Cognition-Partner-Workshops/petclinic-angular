@@ -22,7 +22,7 @@ export {
   Router,
   RouterLink,
   RouterOutlet,
-} from "@angular/router";
+} from '@angular/router';
 
 import {
   Component,
@@ -31,28 +31,28 @@ import {
   Injectable,
   Input,
   ChangeDetectionStrategy,
-} from "@angular/core";
-import { NavigationExtras } from "@angular/router";
+} from '@angular/core';
+import { NavigationExtras } from '@angular/router';
 // Only implements params and part of snapshot.params
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from 'rxjs';
 
 @Directive({
-  selector: "[appRouterLink]",
+  selector: '[appRouterLink]',
   standalone: false,
 })
 export class RouterLinkStubDirective {
   @Input() linkParams: any;
   navigatedTo: any = null;
 
-  @HostListener("click", ["$event"])
+  @HostListener('click', ['$event'])
   onClick() {
     this.navigatedTo = this.linkParams;
   }
 }
 
 @Component({
-  selector: "app-router-outlet",
-  template: "",
+  selector: 'app-router-outlet',
+  template: '',
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
