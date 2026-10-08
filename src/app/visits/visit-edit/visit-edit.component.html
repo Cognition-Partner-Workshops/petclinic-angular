@@ -51,7 +51,9 @@
             <mat-datepicker-toggle matSuffix [for]="visitDateDatepicker"></mat-datepicker-toggle>
             <mat-datepicker #visitDateDatepicker></mat-datepicker>
             <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="date.valid" [class.glyphicon-remove]="!date.valid" aria-hidden="true"></span>
-            <span class="help-block" *ngIf="date.dirty && date.hasError('required')">Date is required</span>
+            @if (date.dirty && date.hasError('required')) {
+              <span class="help-block">Date is required</span>
+            }
           </div>
         </div>
         <div class="form-group has-feedback " [class.has-success]="description.dirty && description.valid" [class.has-error]="description.dirty && !description.valid">
@@ -60,9 +62,19 @@
             <input id="description" name="description" class="form-control" type="text" minlength="1" maxlength="255" required
                    [(ngModel)]="visit.description" #description="ngModel"/>
             <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="description.valid" [class.glyphicon-remove]="!description.valid" aria-hidden="true"></span>
-            <span class="help-block" *ngIf="description.dirty && description.hasError('required')">Description is required</span>
-             <span class="help-block" *ngIf="description.dirty && description.hasError('minlength')">Description must be at least 1 characters long</span>           <span class="help-block" *ngIf="description.dirty && description.hasError('maxlength')">Description may be at most 255 charaters long</span>
-             <span class="help-block" *ngIf="description.dirty && description.hasError('maxlength')">Description may be at most 255 characters long</span>           <span class="help-block" *ngIf="description.dirty && description.hasError('maxlength')">Description may be at most 255 charaters long</span>
+            @if (description.dirty && description.hasError('required')) {
+              <span class="help-block">Description is required</span>
+            }
+             @if (description.dirty && description.hasError('minlength')) {
+               <span class="help-block">Description must be at least 1 characters long</span>
+}           @if (description.dirty && description.hasError('maxlength')) {
+<span class="help-block">Description may be at most 255 charaters long</span>
+             }
+             @if (description.dirty && description.hasError('maxlength')) {
+               <span class="help-block">Description may be at most 255 characters long</span>
+}           @if (description.dirty && description.hasError('maxlength')) {
+<span class="help-block">Description may be at most 255 charaters long</span>
+             }
          </div>
         </div>
 

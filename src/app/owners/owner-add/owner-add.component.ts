@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {OwnerService} from '../owner.service';
 import {Owner} from '../owner';
 import {Router} from '@angular/router';
@@ -28,7 +28,9 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-owner-add',
   templateUrl: './owner-add.component.html',
-  styleUrls: ['./owner-add.component.css']
+  styleUrls: ['./owner-add.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 export class OwnerAddComponent implements OnInit {
 
@@ -44,13 +46,13 @@ export class OwnerAddComponent implements OnInit {
 
   onSubmit(owner: Owner) {
     owner.id = null;
-    this.ownerService.addOwner(owner).subscribe(
-      newOwner => {
+    this.ownerService.addOwner(owner).subscribe({
+      next: newOwner => {
         this.owner = newOwner;
         this.gotoOwnersList();
       },
-      error => this.errorMessage = error as any
-    );
+      error: error => this.errorMessage = error as any
+    });
   }
 
   gotoOwnersList() {

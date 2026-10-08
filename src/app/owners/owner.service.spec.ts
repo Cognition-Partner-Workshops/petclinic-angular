@@ -22,17 +22,10 @@
  * @author Vitaliy Fedoriv
  */
 
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 // Other imports
 import { TestBed } from '@angular/core/testing';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 
 import { HttpErrorHandler } from '../error.service';
 
@@ -48,12 +41,11 @@ describe('OwnerService', () => {
   let httpClientSpy: { get: jasmine.Spy };
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [OwnerService, HttpErrorHandler],
+      providers: [OwnerService, HttpErrorHandler, provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()]
     });
 
-    httpTestingController = TestBed.get(HttpTestingController);
-    ownerService = TestBed.get(OwnerService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    ownerService = TestBed.inject(OwnerService);
     expectedOwners = [
       { id: 1, firstName: 'A' },
       { id: 2, firstName: 'B' },
@@ -76,14 +68,14 @@ describe('OwnerService', () => {
   it('should return expected owners (called once)', () => {
     ownerService
       .getOwners()
-      .subscribe(
-        (owners) =>
+      .subscribe({
+        next: (owners) =>
           expect(owners).toEqual(
             expectedOwners,
             'should return expected owners'
           ),
-        fail
-      );
+        error: fail
+      });
 
     // OwnerService should have made one request to GET owners from expected URL
     const req = httpTestingController.expectOne(ownerService.entityUrl);
@@ -119,10 +111,10 @@ describe('OwnerService', () => {
 
     ownerService
       .addOwner(owner)
-      .subscribe(
-        (data) => expect(data).toEqual(owner, 'should return new owner'),
-        fail
-      );
+      .subscribe({
+        next: (data) => expect(data).toEqual(owner, 'should return new owner'),
+        error: fail
+      });
 
     const req = httpTestingController.expectOne(ownerService.entityUrl);
     expect(req.request.method).toEqual('POST');
@@ -150,7 +142,7 @@ describe('OwnerService', () => {
 
     ownerService
       .updateOwner(owner.id.toString(), owner)
-      .subscribe((data) => expect(data).toEqual(owner, 'updated owner'), fail);
+      .subscribe({next: (data) => expect(data).toEqual(owner, 'updated owner'), error: fail});
 
     const req = httpTestingController.expectOne(ownerService.entityUrl + '/'+owner.id);
     expect(req.request.method).toEqual('PUT');

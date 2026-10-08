@@ -29,7 +29,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let specialty of specialties; let element_id=index">
+      @for (specialty of specialties; track specialty.id; let element_id = $index) {
+        <tr>
         <td>
           <input [id]=element_id [readonly]="true" type="text" class="form-control" [(ngModel)]="specialty.name" name="spec_name" />
         </td>
@@ -38,14 +39,21 @@
           <button class="btn btn-default" (click)="deleteSpecialty(specialty)">Delete</button>
         </td>
       </tr>
+      }
       </tbody>
     </table>
-    <div *ngIf="isInsert">
+    @if (isInsert) {
+      <div>
       <app-specialty-add (newSpeciality)="onNewSpecialty($event)">...</app-specialty-add>
     </div>
+    }
     <div>
-      <button *ngIf="isSpecialitiesDataReceived" class="btn btn-default" (click)="gotoHome()">Home</button>
-      <button *ngIf="isSpecialitiesDataReceived" class="btn btn-default" (click)="showAddSpecialtyComponent()"> Add </button>
+      @if (isSpecialitiesDataReceived) {
+        <button class="btn btn-default" (click)="gotoHome()">Home</button>
+      }
+      @if (isSpecialitiesDataReceived) {
+        <button class="btn btn-default" (click)="showAddSpecialtyComponent()"> Add </button>
+      }
     </div>
   </div>
 </div>

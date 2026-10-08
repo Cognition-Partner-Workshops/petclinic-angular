@@ -15,26 +15,18 @@ Warning: **client only**.
 
 ## Installation
 
-1. Update angular-cli to latest version (8.0.3 current)
-as described on [angular-cli github readme.md](https://github.com/angular/angular-cli#updating-angular-cli)
+Requirements: Node.js `^22.22.3 || ^24.15.0` (the Angular 22 minimum) and npm.
 
-````
-npm uninstall -g angular-cli @angular/cli
-npm cache clean
-npm install -g @angular/cli@latest
-````
 Clone project from github
 ````
 git clone https://github.com/spring-petclinic/spring-petclinic-angular.git
 ````
-Install local project package
+Install local project packages
 ````
-npm install --save-dev @angular/cli@latest
-if npm version > 5.0 delete package-lock.json file  ( bug in npm 5.0 - this file prevent correct packages install)
-npm install
+npm ci
 ````
 
-Now project use Angular CLI v.8.0.3 and Angular v.8.0.1
+The project uses Angular CLI v22.2 and Angular v22.2 (see [ANGULAR_UPGRADE.md](ANGULAR_UPGRADE.md) for the 16 -> 22 migration notes).
 You can see current dependencies in [package.json](package.json) file.
 
 ## Development server
@@ -160,12 +152,13 @@ sudo systemctl restart httpd
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io), or `npm run test-headless` to run them once in headless Chrome.
 
 ## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+The Protractor end-to-end suite was removed during the Angular 22 upgrade (Protractor is end-of-life and the
+`@angular-devkit/build-angular:protractor` builder no longer exists). Run `ng e2e` to have the Angular CLI
+set up a supported E2E framework (Cypress, Playwright, Puppeteer, WebdriverIO, ...).
 
 ## Further help
 

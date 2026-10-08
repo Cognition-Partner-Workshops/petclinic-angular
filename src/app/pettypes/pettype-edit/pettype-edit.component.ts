@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PetType} from '../pettype';
 import {PetTypeService} from '../pettype.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -28,7 +28,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 @Component({
   selector: 'app-pettype-edit',
   templateUrl: './pettype-edit.component.html',
-  styleUrls: ['./pettype-edit.component.css']
+  styleUrls: ['./pettype-edit.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 export class PettypeEditComponent implements OnInit {
   pettype: PetType;
@@ -40,18 +42,18 @@ export class PettypeEditComponent implements OnInit {
 
   ngOnInit() {
     const pettypeId = this.route.snapshot.params.id;
-    this.pettypeService.getPetTypeById(pettypeId).subscribe(
-      pettype => this.pettype = pettype,
-      error => this.errorMessage = error as any);
+    this.pettypeService.getPetTypeById(pettypeId).subscribe({
+      next: pettype => this.pettype = pettype,
+      error: error => this.errorMessage = error as any});
   }
 
   onSubmit(pettype: PetType) {
-    this.pettypeService.updatePetType(pettype.id.toString(), pettype).subscribe(
-      res => {
+    this.pettypeService.updatePetType(pettype.id.toString(), pettype).subscribe({
+      next: res => {
         console.log('update success');
         this.onBack();
       },
-      error => this.errorMessage = error as any);
+      error: error => this.errorMessage = error as any});
 
   }
 

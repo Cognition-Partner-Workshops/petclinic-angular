@@ -26,7 +26,29 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 import {VetEditComponent} from './vet-edit.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatSelectModule} from '@angular/material/select';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {of} from 'rxjs';
+import {SpecialtyService} from '../../specialties/specialty.service';
+import {VetService} from '../vet.service';
+import {RouterStub} from '../../testing/router-stubs';
+import {Vet} from '../vet';
+
+const vet: Vet = {id: 1, firstName: 'James', lastName: 'Carter', specialties: []};
+
+class SpecialtyServiceStub {
+  getSpecialties() {
+    return of([]);
+  }
+}
+
+class VetServiceStub {
+  updateVet() {
+    return of({});
+  }
+}
 
 describe('VetEditComponent', () => {
   let component: VetEditComponent;
@@ -36,7 +58,13 @@ describe('VetEditComponent', () => {
     TestBed.configureTestingModule({
       declarations: [VetEditComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule]
+      imports: [FormsModule, ReactiveFormsModule, MatSelectModule, NoopAnimationsModule],
+      providers: [
+        {provide: SpecialtyService, useClass: SpecialtyServiceStub},
+        {provide: VetService, useClass: VetServiceStub},
+        {provide: Router, useClass: RouterStub},
+        {provide: ActivatedRoute, useValue: {snapshot: {data: {specs: [], vet}}}}
+      ]
     })
       .compileComponents();
   }));
@@ -46,8 +74,8 @@ describe('VetEditComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-// TODO complete test
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

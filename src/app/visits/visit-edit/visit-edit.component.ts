@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Visit} from '../visit';
 import {Pet} from '../../pets/pet';
 import {Owner} from '../../owners/owner';
@@ -28,14 +28,16 @@ import {PetType} from '../../pettypes/pettype';
 import {VisitService} from '../visit.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import * as moment from 'moment';
+import moment from 'moment';
 import {OwnerService} from '../../owners/owner.service';
 import {PetService} from '../../pets/pet.service';
 
 @Component({
   selector: 'app-visit-edit',
   templateUrl: './visit-edit.component.html',
-  styleUrls: ['./visit-edit.component.css']
+  styleUrls: ['./visit-edit.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 export class VisitEditComponent implements OnInit {
   visit: Visit;
@@ -58,8 +60,8 @@ export class VisitEditComponent implements OnInit {
 
   ngOnInit() {
     const visitId = this.route.snapshot.params.id;
-    this.visitService.getVisitById(visitId).subscribe(
-      visit => {
+    this.visitService.getVisitById(visitId).subscribe({
+      next: visit => {
         this.visit = visit;
         this.petService.getPetById(visit.petId).subscribe(
           pet => {
@@ -73,7 +75,7 @@ export class VisitEditComponent implements OnInit {
           }
         )
       },
-      error => this.errorMessage = error as any);
+      error: error => this.errorMessage = error as any});
   }
 
   onSubmit(visit: Visit) {
@@ -82,9 +84,9 @@ export class VisitEditComponent implements OnInit {
     // format output from datepicker to short string yyyy-mm-dd format (rfc3339)
     visit.date = moment(visit.date).format('YYYY-MM-DD');
 
-    this.visitService.updateVisit(visit.id.toString(), visit).subscribe(
-      res => this.gotoOwnerDetail(),
-      error => this.errorMessage = error as any);
+    this.visitService.updateVisit(visit.id.toString(), visit).subscribe({
+      next: res => this.gotoOwnerDetail(),
+      error: error => this.errorMessage = error as any});
 
   }
 

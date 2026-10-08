@@ -29,7 +29,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let pettype of pettypes; let element_id=index">
+      @for (pettype of pettypes; track pettype.id; let element_id = $index) {
+        <tr>
         <td>
           <input [id]=element_id [readonly]="true" type="text" class="form-control" [(ngModel)]="pettype.name" name="pettype_name" />
         </td>
@@ -38,14 +39,21 @@
           <button class="btn btn-default" (click)="deletePettype(pettype)">Delete</button>
         </td>
       </tr>
+      }
       </tbody>
     </table>
-    <div *ngIf="isInsert">
+    @if (isInsert) {
+      <div>
       <app-pettype-add (newPetType)="onNewPettype($event)">...</app-pettype-add>
     </div>
+    }
     <div>
-      <button *ngIf="isPetTypesDataReceived" class="btn btn-default" (click)="gotoHome()">Home</button>
-      <button *ngIf="isPetTypesDataReceived" class="btn btn-default" (click)="showAddPettypeComponent()"> Add </button>
+      @if (isPetTypesDataReceived) {
+        <button class="btn btn-default" (click)="gotoHome()">Home</button>
+      }
+      @if (isPetTypesDataReceived) {
+        <button class="btn btn-default" (click)="showAddPettypeComponent()"> Add </button>
+      }
     </div>
   </div>
 </div>

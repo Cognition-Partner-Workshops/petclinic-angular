@@ -52,7 +52,9 @@
 
     <table class="table table-striped">
       <tr>
-        <app-pet-list *ngFor="let pet of owner.pets" [pet]="pet"></app-pet-list>
+        @for (pet of owner.pets; track pet.id) {
+          <app-pet-list [pet]="pet"></app-pet-list>
+        }
       </tr>
     </table>
   </div>
