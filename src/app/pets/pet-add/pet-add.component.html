@@ -43,10 +43,18 @@
                    #name="ngModel"/>
             <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="name.valid"
                   [class.glyphicon-remove]="!name.valid" aria-hidden="true"></span>
-            <span class="help-block" *ngIf="name.dirty && name.hasError('required')">Name is required</span>
-            <span class="help-block" *ngIf="name.dirty && name.hasError('minlength')">Name must be at least 1 character long</span>
-            <span class="help-block" *ngIf="name.dirty && name.hasError('maxlength')">Name may be at most 30 character long</span>
-            <span class="help-block" *ngIf="name.dirty && name.hasError('pattern')">Name must begin with a letter</span>
+            @if (name.dirty && name.hasError('required')) {
+              <span class="help-block">Name is required</span>
+            }
+            @if (name.dirty && name.hasError('minlength')) {
+              <span class="help-block">Name must be at least 1 character long</span>
+            }
+            @if (name.dirty && name.hasError('maxlength')) {
+              <span class="help-block">Name may be at most 30 character long</span>
+            }
+            @if (name.dirty && name.hasError('pattern')) {
+              <span class="help-block">Name must begin with a letter</span>
+            }
           </div>
         </div>
   
@@ -60,8 +68,9 @@
             <mat-datepicker #birthDateDatepicker></mat-datepicker>
             <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="birthDate.valid"
                   [class.glyphicon-remove]="!birthDate.valid" aria-hidden="true"></span>
-            <span class="help-block"
-                  *ngIf="birthDate.dirty && birthDate.hasError('required')">BirthDate is required</span>
+            @if (birthDate.dirty && birthDate.hasError('required')) {
+              <span class="help-block">BirthDate is required</span>
+            }
   
           </div>
         </div>
@@ -71,15 +80,18 @@
             <label for="type" class="col-sm-2 control-label">Type </label>
             <div class="col-sm-10">
               <select id="type" name="type" class="form-control" required [(ngModel)]="pet.type" #type="ngModel">
-                <option *ngFor="let type of petTypes"
+                @for (type of petTypes; track type.id) {
+                  <option
                         [ngValue]="type">{{ type.name }}
                 </option>
+                }
               </select>
               <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="type.valid"
                     [class.glyphicon-remove]="!type.valid" aria-hidden="true"></span>
   
-              <span class="help-block"
-                    *ngIf="type.dirty && type.hasError('required')">pettype is required</span>
+              @if (type.dirty && type.hasError('required')) {
+                <span class="help-block">pettype is required</span>
+              }
   
             </div>
           </div>

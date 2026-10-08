@@ -28,10 +28,18 @@
           <div class="col-sm-10">
             <input type="text" class="form-control" id="firstName" name="firstName" minlength="1" maxlength="30" pattern="^[A-Za-z]*$"  required formControlName="firstName"/>
             <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="firstNameCtrl.valid" [class.glyphicon-remove]="!firstNameCtrl.valid" aria-hidden="true"></span>
-            <span class="help-block" *ngIf="firstNameCtrl.dirty && firstNameCtrl.hasError('maxlength')">First Name may be only 30 characters long</span>
-            <span class="help-block" *ngIf="firstNameCtrl.dirty && firstNameCtrl.hasError('minlength')">First Name must be at least 1 characters long</span>
-             <span class="help-block" *ngIf="firstNameCtrl.dirty && firstNameCtrl.hasError('pattern')">First Name may only consist of letters</span>
-            <span class="help-block" *ngIf="firstNameCtrl.dirty && firstNameCtrl.hasError('required')">First Name is required</span>
+            @if (firstNameCtrl.dirty && firstNameCtrl.hasError('maxlength')) {
+              <span class="help-block">First Name may be only 30 characters long</span>
+            }
+            @if (firstNameCtrl.dirty && firstNameCtrl.hasError('minlength')) {
+              <span class="help-block">First Name must be at least 1 characters long</span>
+            }
+             @if (firstNameCtrl.dirty && firstNameCtrl.hasError('pattern')) {
+               <span class="help-block">First Name may only consist of letters</span>
+             }
+            @if (firstNameCtrl.dirty && firstNameCtrl.hasError('required')) {
+              <span class="help-block">First Name is required</span>
+            }
           </div>
         </div>
         <div class="form-group has-feedback" [class.has-success]="lastNameCtrl.dirty && lastNameCtrl.valid" [class.has-error]="lastNameCtrl.dirty && !lastNameCtrl.valid">
@@ -39,10 +47,18 @@
           <div class="col-sm-10">
             <input type="text" class="form-control" id="lastName" name="lastName" minlength="1" maxlength="30" pattern="^[A-Za-z]*$"  required formControlName="lastName"/>
             <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="lastNameCtrl.valid" [class.glyphicon-remove]="!lastNameCtrl.valid" aria-hidden="true"></span>
-            <span class="help-block" *ngIf="lastNameCtrl.dirty && lastNameCtrl.hasError('maxlength')">Last Name may be only 30 characters long</span>
-            <span class="help-block" *ngIf="lastNameCtrl.dirty && lastNameCtrl.hasError('minlength')">Last Name must be at least 1 characters long</span>
-            <span class="help-block" *ngIf="lastNameCtrl.dirty && lastNameCtrl.hasError('pattern')">Last Name may only consist of letters</span>
-            <span class="help-block" *ngIf="lastNameCtrl.dirty && lastNameCtrl.hasError('required')">Last Name is required</span>
+            @if (lastNameCtrl.dirty && lastNameCtrl.hasError('maxlength')) {
+              <span class="help-block">Last Name may be only 30 characters long</span>
+            }
+            @if (lastNameCtrl.dirty && lastNameCtrl.hasError('minlength')) {
+              <span class="help-block">Last Name must be at least 1 characters long</span>
+            }
+            @if (lastNameCtrl.dirty && lastNameCtrl.hasError('pattern')) {
+              <span class="help-block">Last Name may only consist of letters</span>
+            }
+            @if (lastNameCtrl.dirty && lastNameCtrl.hasError('required')) {
+              <span class="help-block">Last Name is required</span>
+            }
           </div>
         </div>
         <div class="control-group">
@@ -50,9 +66,11 @@
             <label for="spec" class="col-sm-2 control-label">Specialties</label>
               <mat-form-field class="col-sm-10">
                 <mat-select  [compareWith]="compareSpecFn" id="spec" name="specialties" formControlName="specialties" multiple>
-                  <mat-option *ngFor="let specialty of specList" [value]="specialty">
+                  @for (specialty of specList; track specialty.id) {
+                    <mat-option [value]="specialty">
                     {{ specialty.name }}
                   </mat-option>
+                  }
                 </mat-select>
               </mat-form-field>
           </div>

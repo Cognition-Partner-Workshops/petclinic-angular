@@ -24,7 +24,8 @@
     <th>Actions</th>
   </tr>
   </thead>
-  <tr *ngFor="let visit of visits">
+  @for (visit of visits; track visit.id) {
+    <tr>
     <td>{{ visit.date }}</td>
     <td>{{ visit.description }}</td>
     <td>
@@ -32,6 +33,7 @@
       <button class="btn btn-default" (click)="deleteVisit(visit)">Delete Visit</button>
     </td>
   </tr>
+  }
 </table>
 
 

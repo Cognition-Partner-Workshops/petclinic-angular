@@ -40,8 +40,11 @@
 
     </form>
 
-    <div *ngIf="!owners">No owners with LastName starting with "{{lastName}}"</div>
-    <div class="table-responsive" id="ownersTable"  *ngIf="owners">
+    @if (!owners) {
+      <div>No owners with LastName starting with "{{lastName}}"</div>
+    }
+    @if (owners) {
+      <div class="table-responsive" id="ownersTable">
       <table class="table table-striped">
         <thead>
         <tr>
@@ -54,23 +57,30 @@
         </thead>
 
         <tbody>
-        <tr *ngFor="let owner of owners">
+        @for (owner of owners; track owner.id) {
+          <tr>
           <td class="ownerFullName"><a routerLink="/owners/{{owner.id}}" routerLinkActive="active"
                                        (click)="onSelect(owner)">{{ owner.firstName }} {{ owner.lastName }}</a></td>
           <td>{{ owner.address }}</td>
           <td>{{ owner.city }}</td>
           <td>{{ owner.telephone }}</td>
           <td>
-        <tr *ngFor="let pet of owner.pets">
+        @for (pet of owner.pets; track pet.id) {
+          <tr>
           {{ pet.name }}
         </tr>
+        }
         </td>
         </tr>
+        }
         </tbody>
       </table>
       <div>
-        <button *ngIf="isOwnersDataReceived" class="btn btn-default" (click)="addOwner()">Add Owner</button>
+        @if (isOwnersDataReceived) {
+          <button class="btn btn-default" (click)="addOwner()">Add Owner</button>
+        }
       </div>
     </div>
+    }
   </div>
 </div>
