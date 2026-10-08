@@ -23,7 +23,6 @@
  */
 
 import {
-  async,
   ComponentFixture,
   TestBed,
   waitForAsync,
@@ -80,7 +79,7 @@ describe('OwnerEditComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('back button routing', async() => {
+  it('back button routing', () => {
     let buttons = fixture.debugElement.queryAll(By.css('button'));
     let backbutton = buttons[0];
     backbutton.triggerEventHandler('click', null);
@@ -89,7 +88,7 @@ describe('OwnerEditComponent', () => {
   });
 
  
-  it('update owner', async(() => {
+  it('update owner', waitForAsync(() => {
     let buttons = fixture.debugElement.queryAll(By.css('button'));
     let updateOwnerButton = buttons[1].nativeElement;
     spyOn(component, 'onSubmit');
