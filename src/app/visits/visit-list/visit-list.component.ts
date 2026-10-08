@@ -20,15 +20,17 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Visit} from '../visit';
 import {VisitService} from '../visit.service';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-visit-list',
-  templateUrl: './visit-list.component.html',
-  styleUrls: ['./visit-list.component.css']
+    selector: 'app-visit-list',
+    templateUrl: './visit-list.component.html',
+    styleUrls: ['./visit-list.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class VisitListComponent implements OnInit {
 
@@ -49,8 +51,8 @@ export class VisitListComponent implements OnInit {
   }
 
   deleteVisit(visit: Visit) {
-    this.visitService.deleteVisit(visit.id.toString()).subscribe(
-      response => {
+    this.visitService.deleteVisit(visit.id.toString()).subscribe({
+      next: response => {
         this.responseStatus = response;
         console.log('delete success');
         this.visits.splice(this.visits.indexOf(visit), 1 );
@@ -58,7 +60,8 @@ export class VisitListComponent implements OnInit {
             this.noVisits = true;
           }
       },
-      error => this.errorMessage = error as any);
+      error: error => this.errorMessage = error as any
+    });
   }
 
 }

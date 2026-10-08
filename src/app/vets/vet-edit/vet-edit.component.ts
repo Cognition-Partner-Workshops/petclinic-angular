@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Vet} from '../vet';
 import {VetService} from '../vet.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -29,9 +29,11 @@ import {Specialty} from '../../specialties/specialty';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
-  selector: 'app-vet-edit',
-  templateUrl: './vet-edit.component.html',
-  styleUrls: ['./vet-edit.component.css']
+    selector: 'app-vet-edit',
+    templateUrl: './vet-edit.component.html',
+    styleUrls: ['./vet-edit.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class VetEditComponent implements OnInit {
   vetEditForm: FormGroup;
@@ -83,12 +85,13 @@ this.idCtrl = new FormControl(null);
   }
 
   onSubmit(vet: Vet) {
-    this.vetService.updateVet(vet.id.toString(), vet).subscribe(
-      res => {
+    this.vetService.updateVet(vet.id.toString(), vet).subscribe({
+      next: res => {
         console.log('update success');
         this.gotoVetList();
       },
-      error => this.errorMessage = error as any);
+      error: error => this.errorMessage = error as any
+    });
 
   }
 

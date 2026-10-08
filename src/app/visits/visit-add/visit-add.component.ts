@@ -20,7 +20,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Visit} from '../visit';
 import {VisitService} from '../visit.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -29,13 +29,15 @@ import {Pet} from '../../pets/pet';
 import {PetType} from '../../pettypes/pettype';
 import {Owner} from '../../owners/owner';
 
-import * as moment from 'moment';
+import moment from 'moment';
 import {OwnerService} from '../../owners/owner.service';
 
 @Component({
-  selector: 'app-visit-add',
-  templateUrl: './visit-add.component.html',
-  styleUrls: ['./visit-add.component.css']
+    selector: 'app-visit-add',
+    templateUrl: './visit-add.component.html',
+    styleUrls: ['./visit-add.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class VisitAddComponent implements OnInit {
 
@@ -61,8 +63,8 @@ export class VisitAddComponent implements OnInit {
   ngOnInit() {
     console.log(this.route.parent);
     const petId = this.route.snapshot.params.id;
-    this.petService.getPetById(petId).subscribe(
-      pet => {
+    this.petService.getPetById(petId).subscribe({
+      next: pet => {
         this.currentPet = pet;
         this.visit.pet = this.currentPet;
         this.currentPetType = this.currentPet.type;
@@ -72,7 +74,8 @@ export class VisitAddComponent implements OnInit {
           }
         )
       },
-      error => this.errorMessage = error as any);
+      error: error => this.errorMessage = error as any
+    });
   }
 
   onSubmit(visit: Visit) {
@@ -82,14 +85,14 @@ export class VisitAddComponent implements OnInit {
     // format output from datepicker to short string yyyy-mm-dd format (rfc3339)
     visit.date = moment(visit.date).format('YYYY-MM-DD');
 
-    this.visitService.addVisit(visit).subscribe(
-      newVisit => {
+    this.visitService.addVisit(visit).subscribe({
+      next: newVisit => {
         this.visit = newVisit;
         this.addedSuccess = true;
         that.gotoOwnerDetail();
       },
-      error => this.errorMessage = error as any
-    );
+      error: error => this.errorMessage = error as any
+    });
   }
 
   gotoOwnerDetail() {

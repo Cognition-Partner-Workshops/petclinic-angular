@@ -21,7 +21,7 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Pet} from '../pet';
 import {PetService} from '../pet.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -29,13 +29,15 @@ import {Owner} from '../../owners/owner';
 import {PetType} from '../../pettypes/pettype';
 import {PetTypeService} from '../../pettypes/pettype.service';
 
-import * as moment from 'moment';
+import moment from 'moment';
 import {OwnerService} from '../../owners/owner.service';
 
 @Component({
-  selector: 'app-pet-edit',
-  templateUrl: './pet-edit.component.html',
-  styleUrls: ['./pet-edit.component.css']
+    selector: 'app-pet-edit',
+    templateUrl: './pet-edit.component.html',
+    styleUrls: ['./pet-edit.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class PetEditComponent implements OnInit {
   pet: Pet;
@@ -57,13 +59,14 @@ export class PetEditComponent implements OnInit {
 
   ngOnInit() {
 
-    this.petTypeService.getPetTypes().subscribe(
-      pettypes => this.petTypes = pettypes,
-      error => this.errorMessage = error as any);
+    this.petTypeService.getPetTypes().subscribe({
+      next: pettypes => this.petTypes = pettypes,
+      error: error => this.errorMessage = error as any
+    });
 
     const petId = this.route.snapshot.params.id;
-    this.petService.getPetById(petId).subscribe(
-      pet => {
+    this.petService.getPetById(petId).subscribe({
+      next: pet => {
         this.pet = pet;
         this.ownerService.getOwnerById(pet.ownerId).subscribe(
           response => {
@@ -71,7 +74,8 @@ export class PetEditComponent implements OnInit {
           });
         this.currentType = this.pet.type;
       },
-      error => this.errorMessage = error as any);
+      error: error => this.errorMessage = error as any
+    });
 
   }
 
@@ -81,10 +85,10 @@ export class PetEditComponent implements OnInit {
     // format output from datepicker to short string yyyy-mm-dd format (rfc3339)
     pet.birthDate = moment(pet.birthDate).format('YYYY-MM-DD');
 
-    this.petService.updatePet(pet.id.toString(), pet).subscribe(
-      res => this.gotoOwnerDetail(this.currentOwner),
-      error => this.errorMessage = error as any
-    );
+    this.petService.updatePet(pet.id.toString(), pet).subscribe({
+      next: res => this.gotoOwnerDetail(this.currentOwner),
+      error: error => this.errorMessage = error as any
+    });
   }
 
   gotoOwnerDetail(owner: Owner) {

@@ -25,7 +25,9 @@
         <dt>Birth Date</dt>
         <dd>{{ pet.birthDate }}</dd>
         <dt>Type</dt>
-        <dd *ngIf="!deleteSuccess">{{ pet.type.name }}</dd>
+        @if (!deleteSuccess) {
+          <dd>{{ pet.type.name }}</dd>
+        }
         <button class="btn btn-default" (click)="editPet(pet)">Edit Pet</button>
         <button class="btn btn-default" (click)="deletePet(pet)">Delete Pet</button>
         <button class="btn btn-default" (click)="addVisit(pet)">Add Visit</button>

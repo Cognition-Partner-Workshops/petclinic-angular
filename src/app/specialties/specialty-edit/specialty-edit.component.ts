@@ -20,15 +20,17 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Specialty} from '../specialty';
 import {SpecialtyService} from '../specialty.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-specialty-edit',
-  templateUrl: './specialty-edit.component.html',
-  styleUrls: ['./specialty-edit.component.css']
+    selector: 'app-specialty-edit',
+    templateUrl: './specialty-edit.component.html',
+    styleUrls: ['./specialty-edit.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SpecialtyEditComponent implements OnInit {
   specialty: Specialty;
@@ -40,18 +42,20 @@ export class SpecialtyEditComponent implements OnInit {
 
   ngOnInit() {
     const specId = this.route.snapshot.params.id;
-    this.specialtyService.getSpecialtyById(specId).subscribe(
-      specialty => this.specialty = specialty,
-      error => this.errorMessage = error as any);
+    this.specialtyService.getSpecialtyById(specId).subscribe({
+      next: specialty => this.specialty = specialty,
+      error: error => this.errorMessage = error as any
+    });
   }
 
   onSubmit(specialty: Specialty) {
-    this.specialtyService.updateSpecialty(specialty.id.toString(), specialty).subscribe(
-      res => {
+    this.specialtyService.updateSpecialty(specialty.id.toString(), specialty).subscribe({
+      next: res => {
         console.log('update success');
         this.onBack();
       },
-      error => this.errorMessage = error as any);
+      error: error => this.errorMessage = error as any
+    });
  }
 
   onBack() {

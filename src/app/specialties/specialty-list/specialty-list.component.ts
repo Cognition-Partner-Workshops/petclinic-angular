@@ -20,16 +20,18 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Specialty} from '../specialty';
 import {SpecialtyService} from '../specialty.service';
 import {Router} from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-specialty-list',
-  templateUrl: './specialty-list.component.html',
-  styleUrls: ['./specialty-list.component.css']
+    selector: 'app-specialty-list',
+    templateUrl: './specialty-list.component.html',
+    styleUrls: ['./specialty-list.component.css'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class SpecialtyListComponent implements OnInit {
   specialties: Specialty[];
@@ -47,18 +49,20 @@ export class SpecialtyListComponent implements OnInit {
       finalize(() => {
         this.isSpecialitiesDataReceived = true;
       })
-    ).subscribe(
-      specialties => this.specialties = specialties,
-      error => this.errorMessage = error as any);
+    ).subscribe({
+      next: specialties => this.specialties = specialties,
+      error: error => this.errorMessage = error as any
+    });
   }
 
   deleteSpecialty(specialty: Specialty) {
-    this.specService.deleteSpecialty(specialty.id.toString()).subscribe(
-      response => {
+    this.specService.deleteSpecialty(specialty.id.toString()).subscribe({
+      next: response => {
         this.responseStatus = response;
         this.specialties = this.specialties.filter(currentItem => !(currentItem.id === specialty.id));
       },
-      error => this.errorMessage = error as any);
+      error: error => this.errorMessage = error as any
+    });
   }
 
   onNewSpecialty(newSpecialty: Specialty) {
