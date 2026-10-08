@@ -29,7 +29,8 @@ import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-owner-list',
   templateUrl: './owner-list.component.html',
-  styleUrls: ['./owner-list.component.css']
+  styleUrls: ['./owner-list.component.css'],
+  standalone: false
 })
 export class OwnerListComponent implements OnInit {
   errorMessage: string;

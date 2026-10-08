@@ -35,7 +35,8 @@ import {OwnerService} from '../../owners/owner.service';
 @Component({
   selector: 'app-visit-add',
   templateUrl: './visit-add.component.html',
-  styleUrls: ['./visit-add.component.css']
+  styleUrls: ['./visit-add.component.css'],
+  standalone: false
 })
 export class VisitAddComponent implements OnInit {
 

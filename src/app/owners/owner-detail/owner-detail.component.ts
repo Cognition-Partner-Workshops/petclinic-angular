@@ -29,7 +29,8 @@ import {Owner} from '../owner';
 @Component({
   selector: 'app-owner-detail',
   templateUrl: './owner-detail.component.html',
-  styleUrls: ['./owner-detail.component.css']
+  styleUrls: ['./owner-detail.component.css'],
+  standalone: false
 })
 export class OwnerDetailComponent implements OnInit {
   errorMessage: string;

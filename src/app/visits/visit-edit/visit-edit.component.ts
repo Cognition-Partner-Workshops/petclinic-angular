@@ -35,7 +35,8 @@ import {PetService} from '../../pets/pet.service';
 @Component({
   selector: 'app-visit-edit',
   templateUrl: './visit-edit.component.html',
-  styleUrls: ['./visit-edit.component.css']
+  styleUrls: ['./visit-edit.component.css'],
+  standalone: false
 })
 export class VisitEditComponent implements OnInit {
   visit: Visit;

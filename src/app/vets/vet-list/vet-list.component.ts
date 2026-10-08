@@ -29,7 +29,8 @@ import { finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-vet-list',
   templateUrl: './vet-list.component.html',
-  styleUrls: ['./vet-list.component.css']
+  styleUrls: ['./vet-list.component.css'],
+  standalone: false
 })
 export class VetListComponent implements OnInit {
   vets: Vet[];

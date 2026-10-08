@@ -35,7 +35,8 @@ import {OwnerService} from '../../owners/owner.service';
 @Component({
   selector: 'app-pet-edit',
   templateUrl: './pet-edit.component.html',
-  styleUrls: ['./pet-edit.component.css']
+  styleUrls: ['./pet-edit.component.css'],
+  standalone: false
 })
 export class PetEditComponent implements OnInit {
   pet: Pet;

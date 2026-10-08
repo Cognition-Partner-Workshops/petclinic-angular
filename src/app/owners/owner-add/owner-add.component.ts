@@ -28,7 +28,8 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-owner-add',
   templateUrl: './owner-add.component.html',
-  styleUrls: ['./owner-add.component.css']
+  styleUrls: ['./owner-add.component.css'],
+  standalone: false
 })
 export class OwnerAddComponent implements OnInit {
 
