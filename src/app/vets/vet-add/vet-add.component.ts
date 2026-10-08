@@ -20,17 +20,19 @@
  * @author Vitaliy Fedoriv
  */
 
-import {Component, OnInit} from '@angular/core';
-import {Specialty} from '../../specialties/specialty';
-import {SpecialtyService} from 'app/specialties/specialty.service';
-import {Vet} from '../vet';
-import {Router} from '@angular/router';
-import {VetService} from '../vet.service';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Specialty } from '../../specialties/specialty';
+import { SpecialtyService } from '../../specialties/specialty.service';
+import { Vet } from '../vet';
+import { Router } from '@angular/router';
+import { VetService } from '../vet.service';
 
 @Component({
   selector: 'app-vet-add',
   templateUrl: './vet-add.component.html',
-  styleUrls: ['./vet-add.component.css']
+  styleUrls: ['./vet-add.component.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class VetAddComponent implements OnInit {
   vet: Vet;
@@ -38,17 +40,21 @@ export class VetAddComponent implements OnInit {
   selectedSpecialty: Specialty;
   errorMessage: string;
 
-  constructor(private specialtyService: SpecialtyService, private vetService: VetService, private router: Router) {
+  constructor(
+    private specialtyService: SpecialtyService,
+    private vetService: VetService,
+    private router: Router,
+  ) {
     this.vet = {} as Vet;
     this.selectedSpecialty = {} as Specialty;
     this.specialtiesList = [];
   }
 
   ngOnInit() {
-    this.specialtyService.getSpecialties().subscribe(
-      specialties => this.specialtiesList = specialties,
-      error => this.errorMessage = error as any
-    );
+    this.specialtyService.getSpecialties().subscribe({
+      next: (specialties) => (this.specialtiesList = specialties),
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   onSubmit(vet: Vet) {
@@ -57,13 +63,13 @@ export class VetAddComponent implements OnInit {
     if (this.selectedSpecialty.id !== undefined) {
       vet.specialties.push(this.selectedSpecialty);
     }
-    this.vetService.addVet(vet).subscribe(
-      newVet => {
+    this.vetService.addVet(vet).subscribe({
+      next: (newVet) => {
         this.vet = newVet;
         this.gotoVetList();
       },
-      error => this.errorMessage = error as any
-    );
+      error: (error) => (this.errorMessage = error as any),
+    });
   }
 
   gotoVetList() {

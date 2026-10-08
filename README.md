@@ -15,31 +15,25 @@ Warning: **client only**.
 
 ## Installation
 
-1. Update angular-cli to latest version (8.0.3 current)
-as described on [angular-cli github readme.md](https://github.com/angular/angular-cli#updating-angular-cli)
+Clone the project, use Node.js 22 LTS from the repository's `.nvmrc`, and
+install the locked dependencies:
 
-````
-npm uninstall -g angular-cli @angular/cli
-npm cache clean
-npm install -g @angular/cli@latest
-````
-Clone project from github
-````
+```sh
 git clone https://github.com/spring-petclinic/spring-petclinic-angular.git
-````
-Install local project package
-````
-npm install --save-dev @angular/cli@latest
-if npm version > 5.0 delete package-lock.json file  ( bug in npm 5.0 - this file prevent correct packages install)
-npm install
-````
+cd spring-petclinic-angular
+nvm install
+nvm use
+npm ci
+```
 
-Now project use Angular CLI v.8.0.3 and Angular v.8.0.1
-You can see current dependencies in [package.json](package.json) file.
+Start the Spring PetClinic REST backend before using the frontend. See the
+[Angular upgrade notes](UPGRADE_NOTES.md) for supported versions and project
+commands.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm start` for a development server, then navigate to
+`http://localhost:4200/`. The app reloads when source files change.
 
 ## Code scaffolding
 
@@ -47,7 +41,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `npm run build` to create a production build in the `dist/` directory.
 
 You can also build the application in a dedicated docker image using the provided `Dockerfile` as follows:
 
@@ -78,7 +72,7 @@ compodoc -p src/tsconfig.app.json -d docs
 
 1. Build Angular application:
 
-  ng build --prod --base-href=/petclinic/ --deploy-url=/petclinic/
+  ng build --configuration production --base-href=/petclinic/
 
 2. Create sub-directory **/petclinic** in default nginx directory **/usr/share/nginx/html**
 
@@ -107,7 +101,7 @@ server {
 
 1. Build Angular application:
 
-ng build --prod --base-href=/petclinic/ --deploy-url=/petclinic/
+ng build --configuration production --base-href=/petclinic/
 
 2. Create sub-directory **/petclinic** in default Apache directory **/var/www/html**
 
@@ -160,12 +154,8 @@ sudo systemctl restart httpd
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+Run `npm run test-headless` to execute the Jasmine unit tests in headless Chrome.
+Run `npm run lint` to check TypeScript and template lint rules.
 
 ## Further help
 

@@ -29,7 +29,6 @@ import {VetService} from './vet.service';
 import {VetsRoutingModule} from './vets-routing.module';
 import {VetEditComponent} from './vet-edit/vet-edit.component';
 import {VetAddComponent} from './vet-add/vet-add.component';
-import {VetResolver} from './vet-resolver';
 
 @NgModule({
   imports: [
@@ -49,7 +48,7 @@ import {VetResolver} from './vet-resolver';
     VetEditComponent,
     VetAddComponent
   ],
-  providers: [VetService, VetResolver]
+  providers: [VetService]
 })
 export class VetsModule {
 }

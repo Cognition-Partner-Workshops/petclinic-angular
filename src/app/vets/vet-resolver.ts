@@ -16,23 +16,10 @@
  *
  */
 
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import {Observable} from 'rxjs';
-import {Injectable} from '@angular/core';
-import {VetService} from './vet.service';
-import {Vet} from './vet';
+import { inject } from '@angular/core';
+import { ResolveFn } from '@angular/router';
+import { Vet } from './vet';
+import { VetService } from './vet.service';
 
-/**
- * @author Vitaliy Fedoriv
- */
-
-@Injectable()
-export class VetResolver  {
-
-  constructor(private vetService: VetService) { }
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Vet> | Promise<Vet> | Vet {
-    return this.vetService.getVetById(route.paramMap.get('id'));
-  }
-
-}
+export const vetResolver: ResolveFn<Vet> = (route) =>
+  inject(VetService).getVetById(route.paramMap.get('id')!);

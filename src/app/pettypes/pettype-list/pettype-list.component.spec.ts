@@ -7,7 +7,7 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ActivatedRouteStub, RouterStub} from '../../testing/router-stubs';
 import {FormsModule} from '@angular/forms';
-import {Observable, of} from 'rxjs/index';
+import {Observable, of} from 'rxjs';
 import Spy = jasmine.Spy;
 
 class PetTypeServiceStub {
@@ -68,6 +68,6 @@ describe('PettypeListComponent', () => {
   it('should call deletePetType() method', () => {
     fixture.detectChanges();
     component.deletePettype(component.pettypes[0]);
-    expect(spy.calls.any()).toBe(true, 'deletePetType called');
+    expect(spy.calls.any()).withContext('deletePetType called').toBe(true);
   });
 });

@@ -16,7 +16,6 @@
  *
  */
 
-/* tslint:disable:no-unused-variable */
 
 /**
  * @author Vitaliy Fedoriv
@@ -27,6 +26,20 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 import {VetAddComponent} from './vet-add.component';
 import {FormsModule} from '@angular/forms';
+import {SpecialtyService} from '../../specialties/specialty.service';
+import {Specialty} from '../../specialties/specialty';
+import {Observable, of} from 'rxjs';
+import {Router} from '@angular/router';
+import {RouterStub} from '../../testing/router-stubs';
+import {VetService} from '../vet.service';
+
+class SpecialtyServiceStub {
+  getSpecialties(): Observable<Specialty[]> {
+    return of([]);
+  }
+}
+
+class VetServiceStub {}
 
 describe('VetAddComponent', () => {
   let component: VetAddComponent;
@@ -36,7 +49,12 @@ describe('VetAddComponent', () => {
     TestBed.configureTestingModule({
       declarations: [VetAddComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [FormsModule]
+      imports: [FormsModule],
+      providers: [
+        {provide: SpecialtyService, useClass: SpecialtyServiceStub},
+        {provide: VetService, useClass: VetServiceStub},
+        {provide: Router, useClass: RouterStub},
+      ],
     })
       .compileComponents();
   }));
@@ -46,8 +64,7 @@ describe('VetAddComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-// TODO complete test
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });
