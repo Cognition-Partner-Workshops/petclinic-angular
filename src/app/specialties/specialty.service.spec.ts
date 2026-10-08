@@ -22,20 +22,37 @@
  * @author Vitaliy Fedoriv
  */
 
-import { inject, TestBed, waitForAsync } from '@angular/core/testing';
-import {SpecialtyService} from './specialty.service';
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { inject, TestBed, waitForAsync } from "@angular/core/testing";
+import { SpecialtyService } from "./specialty.service";
+import {
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi,
+  withXhr,
+} from "@angular/common/http";
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from "@angular/common/http/testing";
 
-describe('SpecialtyService', () => {
+describe("SpecialtyService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [],
-    providers: [SpecialtyService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-});
+      imports: [],
+      providers: [
+        SpecialtyService,
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    });
   });
 
-  it('should ...', waitForAsync(inject([HttpTestingController], (specialtyService: SpecialtyService, http: HttpClient) => {
-    expect(specialtyService).toBeTruthy();
-  })));
+  it("should ...", waitForAsync(
+    inject(
+      [HttpTestingController],
+      (specialtyService: SpecialtyService, http: HttpClient) => {
+        expect(specialtyService).toBeTruthy();
+      },
+    ),
+  ));
 });

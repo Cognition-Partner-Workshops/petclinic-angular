@@ -20,21 +20,26 @@
  * @author Vitaliy Fedoriv
  */
 
-import { Component, OnInit, inject } from '@angular/core';
-import {OwnerService} from '../owner.service';
-import {Owner} from '../owner';
-import {Router} from '@angular/router';
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { OwnerService } from "../owner.service";
+import { Owner } from "../owner";
+import { Router } from "@angular/router";
 
 @Component({
-    selector: 'app-owner-add',
-    templateUrl: './owner-add.component.html',
-    styleUrls: ['./owner-add.component.css'],
-    standalone: false
+  selector: "app-owner-add",
+  templateUrl: "./owner-add.component.html",
+  styleUrls: ["./owner-add.component.css"],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class OwnerAddComponent implements OnInit {
   private ownerService = inject(OwnerService);
   private router = inject(Router);
-
 
   owner: Owner;
   errorMessage: string;
@@ -43,22 +48,20 @@ export class OwnerAddComponent implements OnInit {
     this.owner = {} as Owner;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSubmit(owner: Owner) {
     owner.id = null;
     this.ownerService.addOwner(owner).subscribe(
-      newOwner => {
+      (newOwner) => {
         this.owner = newOwner;
         this.gotoOwnersList();
       },
-      error => this.errorMessage = error as any
+      (error) => (this.errorMessage = error as any),
     );
   }
 
   gotoOwnersList() {
-    this.router.navigate(['/owners']);
+    this.router.navigate(["/owners"]);
   }
-
 }

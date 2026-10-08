@@ -20,17 +20,23 @@
  * @author Vitaliy Fedoriv
  */
 
-import { Component, OnInit, inject } from '@angular/core';
-import {Specialty} from '../specialty';
-import {SpecialtyService} from '../specialty.service';
-import {Router} from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { Specialty } from "../specialty";
+import { SpecialtyService } from "../specialty.service";
+import { Router } from "@angular/router";
+import { finalize } from "rxjs/operators";
 
 @Component({
-    selector: 'app-specialty-list',
-    templateUrl: './specialty-list.component.html',
-    styleUrls: ['./specialty-list.component.css'],
-    standalone: false
+  selector: "app-specialty-list",
+  templateUrl: "./specialty-list.component.html",
+  styleUrls: ["./specialty-list.component.css"],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class SpecialtyListComponent implements OnInit {
   private specService = inject(SpecialtyService);
@@ -47,22 +53,29 @@ export class SpecialtyListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.specService.getSpecialties().pipe(
-      finalize(() => {
-        this.isSpecialitiesDataReceived = true;
-      })
-    ).subscribe(
-      specialties => this.specialties = specialties,
-      error => this.errorMessage = error as any);
+    this.specService
+      .getSpecialties()
+      .pipe(
+        finalize(() => {
+          this.isSpecialitiesDataReceived = true;
+        }),
+      )
+      .subscribe(
+        (specialties) => (this.specialties = specialties),
+        (error) => (this.errorMessage = error as any),
+      );
   }
 
   deleteSpecialty(specialty: Specialty) {
     this.specService.deleteSpecialty(specialty.id.toString()).subscribe(
-      response => {
+      (response) => {
         this.responseStatus = response;
-        this.specialties = this.specialties.filter(currentItem => !(currentItem.id === specialty.id));
+        this.specialties = this.specialties.filter(
+          (currentItem) => !(currentItem.id === specialty.id),
+        );
       },
-      error => this.errorMessage = error as any);
+      (error) => (this.errorMessage = error as any),
+    );
   }
 
   onNewSpecialty(newSpecialty: Specialty) {
@@ -75,11 +88,14 @@ export class SpecialtyListComponent implements OnInit {
   }
 
   showEditSpecialtyComponent(updatedSpecialty: Specialty) {
-    this.router.navigate(['/specialties', updatedSpecialty.id.toString(), 'edit']);
+    this.router.navigate([
+      "/specialties",
+      updatedSpecialty.id.toString(),
+      "edit",
+    ]);
   }
 
   gotoHome() {
-    this.router.navigate(['/welcome']);
+    this.router.navigate(["/welcome"]);
   }
-
 }

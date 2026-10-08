@@ -20,18 +20,24 @@
  * @author Vitaliy Fedoriv
  */
 
-import { Component, OnInit, inject } from '@angular/core';
-import {Specialty} from '../../specialties/specialty';
-import {SpecialtyService} from 'app/specialties/specialty.service';
-import {Vet} from '../vet';
-import {Router} from '@angular/router';
-import {VetService} from '../vet.service';
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { Specialty } from "../../specialties/specialty";
+import { SpecialtyService } from "app/specialties/specialty.service";
+import { Vet } from "../vet";
+import { Router } from "@angular/router";
+import { VetService } from "../vet.service";
 
 @Component({
-    selector: 'app-vet-add',
-    templateUrl: './vet-add.component.html',
-    styleUrls: ['./vet-add.component.css'],
-    standalone: false
+  selector: "app-vet-add",
+  templateUrl: "./vet-add.component.html",
+  styleUrls: ["./vet-add.component.css"],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class VetAddComponent implements OnInit {
   private specialtyService = inject(SpecialtyService);
@@ -51,8 +57,8 @@ export class VetAddComponent implements OnInit {
 
   ngOnInit() {
     this.specialtyService.getSpecialties().subscribe(
-      specialties => this.specialtiesList = specialties,
-      error => this.errorMessage = error as any
+      (specialties) => (this.specialtiesList = specialties),
+      (error) => (this.errorMessage = error as any),
     );
   }
 
@@ -63,15 +69,15 @@ export class VetAddComponent implements OnInit {
       vet.specialties.push(this.selectedSpecialty);
     }
     this.vetService.addVet(vet).subscribe(
-      newVet => {
+      (newVet) => {
         this.vet = newVet;
         this.gotoVetList();
       },
-      error => this.errorMessage = error as any
+      (error) => (this.errorMessage = error as any),
     );
   }
 
   gotoVetList() {
-    this.router.navigate(['/vets']);
+    this.router.navigate(["/vets"]);
   }
 }

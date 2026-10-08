@@ -20,19 +20,30 @@
  * @author Vitaliy Fedoriv
  */
 
-import { Component, OnInit, inject } from '@angular/core';
-import {Vet} from '../vet';
-import {VetService} from '../vet.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {SpecialtyService} from '../../specialties/specialty.service';
-import {Specialty} from '../../specialties/specialty';
-import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  inject,
+  ChangeDetectionStrategy,
+} from "@angular/core";
+import { Vet } from "../vet";
+import { VetService } from "../vet.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { SpecialtyService } from "../../specialties/specialty.service";
+import { Specialty } from "../../specialties/specialty";
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from "@angular/forms";
 
 @Component({
-    selector: 'app-vet-edit',
-    templateUrl: './vet-edit.component.html',
-    styleUrls: ['./vet-edit.component.css'],
-    standalone: false
+  selector: "app-vet-edit",
+  templateUrl: "./vet-edit.component.html",
+  styleUrls: ["./vet-edit.component.css"],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class VetEditComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
@@ -57,15 +68,21 @@ export class VetEditComponent implements OnInit {
   }
 
   buildForm() {
-this.idCtrl = new FormControl(null);
-    this.firstNameCtrl = new FormControl('', [Validators.required, Validators.minLength(2)]);
-    this.lastNameCtrl = new FormControl('', [Validators.required, Validators.minLength(2)]);
+    this.idCtrl = new FormControl(null);
+    this.firstNameCtrl = new FormControl("", [
+      Validators.required,
+      Validators.minLength(2),
+    ]);
+    this.lastNameCtrl = new FormControl("", [
+      Validators.required,
+      Validators.minLength(2),
+    ]);
     this.specialtiesCtrl = new FormControl(null);
     this.vetEditForm = this.formBuilder.group({
       id: this.idCtrl,
       firstName: this.firstNameCtrl,
       lastName: this.lastNameCtrl,
-      specialties: this.specialtiesCtrl
+      specialties: this.specialtiesCtrl,
     });
   }
 
@@ -90,16 +107,15 @@ this.idCtrl = new FormControl(null);
 
   onSubmit(vet: Vet) {
     this.vetService.updateVet(vet.id.toString(), vet).subscribe(
-      res => {
-        console.log('update success');
+      (res) => {
+        console.log("update success");
         this.gotoVetList();
       },
-      error => this.errorMessage = error as any);
-
+      (error) => (this.errorMessage = error as any),
+    );
   }
 
   gotoVetList() {
-    this.router.navigate(['/vets']);
+    this.router.navigate(["/vets"]);
   }
-
 }
